@@ -1,0 +1,75 @@
+
+<nav class="navbar bg-light navbar-expand-md p-2">
+  <div class="container-fluid">
+    <a class="navbar-brand  fs-2 fw-bold mx-3  d-md-none " style=" color : #935e38" href="#">THOPATE FARMS <sup class="regd_mark">&#174;</sup></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <a class="offcanvas-title brand-heading-sm fs-5 fw-bold" style="color:#935e38" id="offcanvasNavbarLabel" href="#">THOPATE FARMS <sup
+            class="regd_mark">&#174;</sup></a>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body ">
+        <ul class="navbar-nav mb-2 ms-md-5  justify-content-center align-items-md-center flex-grow-1 "
+          >
+
+          <li class="nav-item p-2  text-decoration-none fs-5">
+            <a class="nav-link active" aria-current="page" href="#">HOME</a>
+          </li>
+
+
+          <li class="nav-item p-2  text-decoration-none fs-5 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              PRODUCTS
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Cow milk</a></li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Cow ghee</a></li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Vegetables</a></li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Fruits</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a class="navbar-brand fs-2 fw-bold mx-3  d-none d-md-block " [ngStyle]=" {'color' : '#935e38'}" href="#">THOPATE FARMS <sup
+            class=" fs-5">&#174;</sup></a>
+
+        <ul class="navbar-nav mb-2 me-md-5 justify-content-center align-items-md-center flex-grow-1 ">
+          <li class="nav-item p-2 text-decoration-none fs-5 dropdown">
+            <a class="nav-link dropdown-toggle"  href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              CONNECT
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Contact us</a></li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Visit us</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" href="#">Careers</a></li>
+            </ul>
+          </li>
+
+
+          <li class="nav-item p-2  mx-md-3 text-decoration-none fs-5 dropdown">
+            <a class="nav-link dropdown-toggle profile-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <!-- <i class="fa-regular fa-user-circle fs-3 "></i> -->
+              PROFILE
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5"   href="#">Profile</a></li>
+              <li><a class="dropdown-item p-2 w-75 mx-3 text-decoration-none fs-5" (click)="userLogout()" [routerLink]="'/auth/login'" href="#"
+                  >Log out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</nav>
+

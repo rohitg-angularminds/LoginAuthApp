@@ -1,0 +1,81 @@
+
+
+.profile-pic{
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    img{
+        width:110% ;
+        height :100%;
+        object-fit: cover;
+
+    }
+}
+
+.profile-card{
+    width: 50%;
+    background-color: rgb(221, 182, 131);
+}
+
+.profile-info{
+
+    p:not(first-child){
+        font-size: 1.2rem;
+        font-family: 'montserrat', sans-serif;
+
+
+    }
+
+    p:first-child{
+        font-family: 'montserrat', sans-serif;
+        font-weight: 600;
+    }
+}
+
+.main{
+    width:100vw;
+    height:89vh;
+   
+}
+
+
+@media screen and (max-width:768px)
+{
+    .profile-card{
+        width:70%
+    }
+
+    .profile-info{
+
+        p:not(first-child){
+            font-size: 1rem;
+            font-family: 'montserrat', sans-serif;
+        }
+
+        p:first-child{
+            font-family: 'montserrat', sans-serif;
+            font-weight: 600;
+        }
+    }
+
+}
+
+@media screen and (max-width:380px)
+{
+    .profile-card{
+        width:80%
+    }
+
+    .profile-info{
+        p:not(first-child){
+            font-size: 0.9rem;
+            font-family: 'montserrat', sans-serif;
+        }
+
+        p:first-child{
+            font-family: 'montserrat', sans-serif;
+            font-weight: 600;
+        }
+    }
+
+}
