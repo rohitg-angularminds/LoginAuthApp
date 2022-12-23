@@ -1,0 +1,164 @@
+<app-header></app-header>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" *ngIf="userId===null">Create New User</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel" *ngIf="userId">update User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newuserForm" (ngSubmit)="userId ? updateUserInfo(): createNewUser(); newuserForm.reset()">
+          <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" [formControlName]="'email'" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" [formControlName]="'name'" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" [formControlName]="'password'" class="form-control">
+            </div>
+          </div>
+          <fieldset class="row mb-3" *ngIf="userId == null">
+            <legend class="col-form-label col-sm-2 pt-0">Role</legend>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <input class="form-check-input" [formControlName]="'role'" type="radio" name="role" value="admin">
+                <label class="form-check-label" for="gridRadios1">
+                  Admin
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" [formControlName]="'role'" type="radio" name="role" value="user">
+                <label class="form-check-label" for="gridRadios2">
+                  user
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <div *ngIf="userId ;then saveBtn; else addBtn"></div>
+
+          <ng-template #addBtn><button type="submit" [disabled]="!newuserForm.valid" class="btn btn-primary"
+              data-bs-dismiss="modal" aria-label="Close">Add</button></ng-template>
+          <ng-template #saveBtn><button type="submit" class="btn btn-success" data-bs-dismiss="modal"
+              aria-label="Close">Save Changes</button></ng-template>
+        </form>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- toast -->
+
+<div class="position-fixed top-0 start-0 ps-3 col-12" style="z-index: 11;">
+  <div id="liveToast" class="toast mx-auto mt-5 bg-danger" [class.show]="errorMessage !== undefined"  role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Error</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{errorMessage}}
+    </div>
+  </div>
+</div>
+
+<!-- list table -->
+<section class="container mx-auto rounded-3 table-wrapper-scroll-y p-3 mt-5 ">
+
+  <h2 class="fw-bold text-center my-3" style="color: #3c6e71;">USERS</h2>
+  <div class="d-flex col-12 col-sm-4 mb-3">
+    <input class="form-control me-2" type="search" placeholder="Search" (keyup) = "searchInput=== '' ? getUserList() : ''"   [(ngModel)] = "searchInput" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit" (click)="getUserList()" >Search</button>
+  </div>
+
+  <div class="rounded-3  table-responsive"data-mdb-perfect-scrollbar="true" style="height: 310px" >
+    <table class="table align-middle table-striped "  >
+      <thead class="fs-5 sticky-top" style="background:rgb(207, 122, 91); color: #f2e8cf;">
+        <th class="p-2">S.no</th>
+        <th class="p-2">Name</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Role</th>
+        <th class="p-2">Action</th>
+      </thead>
+      <tbody class="">
+        <tr *ngFor="let user of usersList; index as i">
+          <td>{{i+1}}</td>
+          <td>{{user['name']}}</td>
+          <td>{{user['email']}}</td>
+          <td class="dropdown">{{user['role']}}
+            <a class=" dropdown-toggle text-decoration-underline mx-2" href="#" role="button" data-bs-toggle="dropdown"
+              id="dropdownMenuButton" aria-expanded="false" style="color:black" title="edit user role">
+            </a>
+            <ul class="dropdown-menu" style="background-color: #f4f3ee;" >
+              <li class="dropdown-item" value="admin" (click)="updateUserRole(user['_id'],$event)">admin</li>
+              <li class="dropdown-item" value="user" (click)="updateUserRole(user['_id'],$event)">user</li>
+            </ul>
+          </td>
+          <td>
+            <div class="dropdown">
+              <a class=" dropdown-toggle toggle-arrow text-decoration-none fw-lighter" href="#" role="button"
+                data-bs-toggle="dropdown" id="dropdownMenuButton" aria-expanded="false">
+                Action
+              </a>
+              <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton" style="background-color: #f4f3ee;">
+                <li><a class="dropdown-item p-2  " href="" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="getUserId(user['_id'])">update</a> </li>
+                <li><a class="dropdown-item p-2 text-decoration-none" [class.disabled]="user['_id'] == loggedInUser"
+                    (click)="deleteUser(user['_id'])">delete</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" class="btn btn-light m-3 ms-0" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    style="background: #3c6e71; color:white">
+    Create user
+  </button>
+</section>
+
+<section class="pagination-sec d-flex justify-content-center flex-column flex-sm-row mx-auto">
+  <div class="btn-group  h-75">
+    <button type="button" class="btn btn-light">users per page</button>
+    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" (click)="updateLimit($event)" style="width: 10px !important;">
+      <li><a class="dropdown-item" value="5" >5</a></li>
+      <li><a class="dropdown-item" value="10" >10</a></li>
+      <li><a class="dropdown-item" value="15" >15</a></li>
+    </ul>
+  </div>
+
+  <div class="d-flex justify-content-center ms-5">
+    <ul class="pagination" *ngFor="let page of pagesArray ; index as i; first as first;last as last">
+      <li class="page-item " *ngIf="first" [class.disabled]="currentPage==1">
+        <a class="page-link" (click)="prevPage()">Previous</a>
+      </li>
+      <li class="page-item" (click)="changePage($event)"><a class="page-link">{{i+1}}</a></li>
+      <li class="page-item" *ngIf="last" [class.disabled]="currentPage== pagesArray.length" >
+        <a class="page-link" (click)="nextPage()">Next</a>
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+
+
+<app-footer></app-footer>

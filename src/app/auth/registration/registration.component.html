@@ -61,14 +61,27 @@
           !password is mismatch
         </small>
       </div>
+      <div class="m-3 mx-auto col-8 d-flex justify-content-between align-items-center" style="background: white; height:50px;  " >
+        <div>
+          <input type="checkbox" [formControlName]="'captcha'" (click)="checkCaptcha()" class="m-2"> I am not a robot
+        </div>
+        <img
+          src="../../../assets/captcha-img.png"
+          alt="recaptcha logo" style=" height:100%;object-fit: contain; " />
+      </div>
       <div class=" d-flex flex-column  align-items-center">
         <button type="submit " [disabled]="!registrationForm.valid"
           class="btn btn-outline-light rounded-0 px-4 fs-5  py-2 my-3 text-uppercase"
           style="border-color: #2f0000; color:#2f0000 ">Register</button>
-        <p class="">if already registered <a [routerLink]="'/auth/login'" class="text-decoration-none " style="color: #2f0000;">login</a></p>
+        <p class="">if already registered <a [routerLink]="'/auth/login'" class="text-decoration-none "
+            style="color: #2f0000;">login</a></p>
       </div>
 
     </form>
 
   </div>
+
+
+
 </div>
+

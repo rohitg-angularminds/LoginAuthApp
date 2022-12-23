@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
-import { MyprofileComponent } from './home/myprofile/myprofile.component';
+import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LoginGuard, ProfileGuard } from './profile.guard';
 
@@ -19,8 +19,8 @@ const routes: Routes = [
     canActivate: [LoginGuard]
   },
   {
-    path:'',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    path:'user',
+    loadChildren: () => import('./user/user.module').then((m) => m.HomeModule),
   },
   {
     path:'**',

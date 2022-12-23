@@ -1,6 +1,36 @@
+<!-- forgot password modal -->
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update company info</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm" (ngSubmit)="forgotPassword(); loginForm.reset()">
+          <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" [formControlName]="'email'" class="form-control">
+            </div>
+          </div>
+          <button type="submit"  class="btn btn-warning" data-bs-dismiss="modal"
+            aria-label="Close">submit</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="main d-flex flex-column justify-content-center align-items-center">
   <h3 CLASS="fw-bold " style="color: #2f0000;">LOGIN </h3>
- <div class="form-div col-10 col-md-7 col-lg-3 p-5 rounded opacity-75 mx-auto " style="background-color: #e0b88f;
+  <div class="form-div col-10 col-md-7 col-lg-4 p-5 rounded opacity-75 mx-auto " style="background-color: #e0b88f;
   ">
     <form [formGroup]="loginForm" (ngSubmit)="setLoginUserData()">
       <div class="mb-4 ">
@@ -21,13 +51,24 @@
           *field is required
         </small>
       </div>
-      <div class="mt-4  d-flex flex-column justify-content-between align-items-center">
+      <div class=" mx-auto d-flex justify-content-between align-items-center">
+        <div style="height:50px;">
+          <input type="checkbox" [formControlName]="'captcha'" (click)="checkCaptcha()" class="m-2"> I am not a robot
+          <img src="../../../assets/captcha-img.png" alt="recaptcha logo" style=" height:100%;object-fit: contain;" />
+        </div>
+      </div>
+      <div class="mt-2  d-flex flex-column justify-content-between align-items-center">
         <button type="submit" [disabled]="!loginForm.valid"
-          class="btn btn-outline-light border-0 rounded-0 px-4 fs-5 my-3 text-uppercase"
-          style="background: #2f0000;
+          class="btn btn-outline-light border-0 rounded-0 px-4 fs-5 my-3 text-uppercase" style="background: #2f0000;
           color: rgb(247, 216, 184);  ">Login</button>
+      </div>
+      <div class="d-flex justify-content-between">
         <a href="#" class="text-decoration-none " style="color: #2f0000;" [routerLink]="'/auth/register'">Create
           account </a>
+        <a href="#" class="text-decoration-none " data-bs-toggle="modal"
+        data-bs-target="#forgotPasswordModal" style="color: #2f0000;" > forgot
+          password?
+        </a>
       </div>
     </form>
 

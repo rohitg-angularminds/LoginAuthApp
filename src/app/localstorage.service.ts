@@ -6,12 +6,13 @@ import { Injectable } from '@angular/core';
 export class LocalstorageService {
   constructor() {}
 
-  setUserToken(token : string){
-    localStorage.setItem('token', token)
+  setUserToken(token :any){
+    console.log(token)
+    localStorage.setItem('token',token);
   }
 
   getUserToken(){
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 
   deleteUserToken(){

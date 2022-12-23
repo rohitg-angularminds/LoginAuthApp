@@ -3,9 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './home/header/header.component';
+import { HeaderComponent } from './user/header/header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {HttpClientModule,} from '@angular/common/http';
+import { RECAPTCHA_V3_SITE_KEY , RecaptchaV3Module} from 'ng-recaptcha';
+
+
+
 
 
 @NgModule({
@@ -16,9 +20,10 @@ import {HttpClientModule,} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RecaptchaV3Module,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: RECAPTCHA_V3_SITE_KEY, useValue: "6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI" }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
