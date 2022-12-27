@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalstorageService } from '../../localstorage.service';
-import { passwordValidator } from '../../custom-validators';
-import { HttpService } from 'src/app/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
+import { passwordValidator } from '../../validators/custom-validators';
+import { HttpService } from 'src/app/services/http.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
@@ -62,9 +62,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   setRegduserData() {
+
     delete this.registrationForm.value['confirmpassword'];
 
-    this.httpService.set(this.registrationForm.value, this.url).subscribe({
+    this.httpService.post(this.registrationForm.value, this.url).subscribe({
       next: (users: any) => {
         this.router.navigateByUrl('/auth/login');
       },
@@ -74,10 +75,10 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+
   checkCaptcha(): void {
     this.recaptchaV3Service.execute('importantAction').subscribe( token => {
       this.registrationForm.value.captcha = token
-      console.log(token)
     })
   }
 

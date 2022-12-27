@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from 'src/app/http.service';
-import { LocalstorageService } from 'src/app/localstorage.service';
+import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-myprofile',
@@ -14,9 +15,14 @@ export class MyprofileComponent implements OnInit {
   url: string = '/auth/self'
   loggedUserId! : any;
   company!: any;
+  isVerified: boolean = false;
 
 
-  constructor(public service: LocalstorageService, public httpService: HttpService,public fb: FormBuilder) {
+  constructor(public service: LocalstorageService,
+    public httpService: HttpService,
+    public fb: FormBuilder,
+    public router: Router
+    ) {
 
   }
 
@@ -34,10 +40,17 @@ export class MyprofileComponent implements OnInit {
           this.username = data?.name;
           this.useremail = data?.email
           this.company = data._org?.name
-
+          this.isVerified = data.isEmailVerified
           console.log(data)
     }})
 
+    }
+
+    sendVerfmail(){
+      this.httpService.post('', '/auth/send-verification-email').subscribe(data => {
+        this.router.navigateByUrl('/auth/verify-email')
+
+      })
     }
 
 

@@ -1,8 +1,6 @@
 <app-header></app-header>
 
-<div class="position-relative main" style="height: 89.5vh;">
-
-
+<div class="position-relative main" style="height: 81.5vh;">
   <section class=" container-fluid">
     <div class="container py-5">
       <div class="row d-flex justify-content-center align-items-center  h-100">
@@ -17,10 +15,15 @@
                 </div>
                 <div class="flex-grow-1 ms-4 my-3">
                   <h4 class="my-1 d-inline"> {{username}}</h4>
-
-                  <p class="my-2 pb-1" style="color: #2b2a2a;">{{useremail}}</p>
+                  <div class="my-3">
+                    <p class="d-inline me-2" style="color: #2b2a2a;">{{useremail}}</p>
+                    <span class="bg-success d-inline-block px-2" *ngIf="isVerified">Verified</span>
+                  </div>
+                  <button class="btn btn-sm btn-success mb-2" *ngIf="isVerified == false"><a
+                      class="text-light text-decoration-none" (click)="sendVerfmail()">Verify email</a></button>
                   <h5 class="text-uppercase">{{company}}</h5>
                 </div>
+
               </div>
 
             </div>
@@ -31,5 +34,5 @@
     </div>
   </section>
 
-
-<app-footer></app-footer>
+</div>
+  <app-footer></app-footer>

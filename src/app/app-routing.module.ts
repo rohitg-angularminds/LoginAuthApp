@@ -4,7 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
 import { MyprofileComponent } from './user/myprofile/myprofile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LoginGuard, ProfileGuard } from './profile.guard';
+import { LoginGuard, ProfileGuard } from './guards/profile.guard';
 
 const routes: Routes = [
 
@@ -16,7 +16,6 @@ const routes: Routes = [
   {
     path:'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule ),
-    canActivate: [LoginGuard]
   },
   {
     path:'user',

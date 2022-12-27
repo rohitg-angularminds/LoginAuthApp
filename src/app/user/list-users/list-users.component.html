@@ -76,10 +76,10 @@
 </div>
 
 <!-- list table -->
-<section class="container mx-auto rounded-3 table-wrapper-scroll-y p-3 mt-5 ">
+<section class="container mx-auto rounded-3 table-wrapper-scroll-y p-3 mt-3 ">
 
   <h2 class="fw-bold text-center my-3" style="color: #3c6e71;">USERS</h2>
-  <div class="d-flex col-12 col-sm-4 mb-3">
+  <div class="d-flex col-12 col-sm-7 col-lg-4 mb-3">
     <input class="form-control me-2" type="search" placeholder="Search" (keyup) = "searchInput=== '' ? getUserList() : ''"   [(ngModel)] = "searchInput" aria-label="Search">
     <button class="btn btn-outline-success" type="submit" (click)="getUserList()" >Search</button>
   </div>
@@ -131,7 +131,7 @@
   </button>
 </section>
 
-<section class="pagination-sec d-flex justify-content-center flex-column flex-sm-row mx-auto">
+<section class="pagination-sec d-flex justify-content-center flex-column flex-sm-row mx-auto mb-3">
   <div class="btn-group  h-75">
     <button type="button" class="btn btn-light">users per page</button>
     <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
@@ -161,4 +161,4 @@
 
 
 
-<app-footer></app-footer>
+<app-footer class="footer" ></app-footer>

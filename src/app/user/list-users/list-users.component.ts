@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { HttpService } from 'src/app/http.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-list-users',
@@ -43,7 +43,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   createNewUser() {
-    this.httpService.set(this.newuserForm.value, '/users').subscribe({
+    this.httpService.post(this.newuserForm.value, '/users').subscribe({
       next: (data) => {
         this.getUserList();
       },
@@ -68,7 +68,6 @@ export class ListUsersComponent implements OnInit {
     this.httpService
       .get(`/users/${this.queryparams}`)
       .subscribe((users: any) => {
-        console.log(users);
         this.usersList = users.results;
         this.pagesArray.length = users.totalPages;
         this.pagesArray.fill(0);

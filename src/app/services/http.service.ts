@@ -7,8 +7,6 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root',
 })
 export class HttpService {
-
-
   baseURL = 'https://shop-api.ngminds.com';
 
   constructor(
@@ -16,34 +14,32 @@ export class HttpService {
     private userService: LocalstorageService
   ) {}
 
-  set(formData: any, url: string): Observable<any> {  
-    return this.http
-      .post(`${this.baseURL}${url}`, formData, {
+  post(formData: any, url: string): Observable<any> {
+    return this.http.post(
+      `${this.baseURL}${url}`,
+      formData,
+      {
         headers: { Authorization: `Bearer ${this.userService.getUserToken()}` },
-      })
-
+      }
+    );
   }
 
-  get(url: string):Observable<any> {
-    // console.log(this.userService.getUserToken())
-   return this.http
-      .get(`${this.baseURL}${url}`, {
-        headers: { Authorization: `Bearer ${this.userService.getUserToken()}` }
-      })
-  }
-
-  delete( url:string){
-   return this.http.delete(`${this.baseURL}${url}`, {
+  get(url: string): Observable<any> {
+    return this.http.get(`${this.baseURL}${url}`, {
       headers: { Authorization: `Bearer ${this.userService.getUserToken()}` },
-    })
-
+    });
   }
 
-  patch(url:string, formData:any){
-    console.log(formData)
-    return this.http.patch(`${this.baseURL}${url}`,formData,{
+  delete(url: string) {
+    return this.http.delete(`${this.baseURL}${url}`, {
       headers: { Authorization: `Bearer ${this.userService.getUserToken()}` },
-    } )
+    });
   }
 
+  patch(url: string, formData: any) {
+    console.log(formData);
+    return this.http.patch(`${this.baseURL}${url}`, formData, {
+      headers: { Authorization: `Bearer ${this.userService.getUserToken()}` },
+    });
+  }
 }

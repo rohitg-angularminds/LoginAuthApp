@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginGuard, ProfileGuard } from '../profile.guard';
-import { HomeComponent } from './user.component';
+import { LoginGuard, ProfileGuard } from '../guards/profile.guard';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ListUsersComponent } from './list-users/list-users.component';
+import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,8 @@ const routes: Routes = [
   },
   {
     path:'list-users',
-    component: ListUsersComponent
+    component: ListUsersComponent,
+    canActivate: [ProfileGuard]
   }
 ];
 

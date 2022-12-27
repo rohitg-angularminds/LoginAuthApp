@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,8 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from 'src/app/http.service';
-import { LocalstorageService } from 'src/app/localstorage.service';
+import { HttpService } from 'src/app/services/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-header',
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit {
   }
 
   changePassword(){
-    this.httpService.set(this.changePasswordForm.value, '/users/auth/change-password').subscribe(data => {
+    this.httpService.post(this.changePasswordForm.value, '/users/auth/change-password').subscribe(data => {
       console.log(data)
     })
   }

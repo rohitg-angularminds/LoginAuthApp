@@ -7,11 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpService } from 'src/app/http.service';
-import { LocalstorageService } from 'src/app/localstorage.service';
+import { HttpService } from 'src/app/services/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
-
-
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -24,18 +23,19 @@ export class LoginComponent implements OnInit {
     public userService: LocalstorageService,
     public httpService: HttpService,
     public router: Router,
-    public recaptchaV3Service : ReCaptchaV3Service
+    public authService: SocialAuthService,
+    public recaptchaV3Service: ReCaptchaV3Service
   ) {}
 
   loginForm!: FormGroup;
-  userInputStatus! : string;
-
+  userInputStatus!: string;
+  errorMessage = undefined;
   ngOnInit(): void {
-
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      captcha:new FormControl('', [Validators.required])
+      captcha: new FormControl('', [Validators.required]),
+
     });
   }
 
@@ -43,29 +43,49 @@ export class LoginComponent implements OnInit {
     return this.loginForm.value;
   }
 
-  setLoginUserData(){
-
-    this.httpService.set(this.loginForm.value,`/auth/login?captcha=false`).subscribe({next: (data: any) => {
-      localStorage.setItem('token', data.token)
-      this.router.navigateByUrl('/user/my-profile')
-    }, error :(err) => {
-      alert(err.error.message)
-    }})
+  setLoginUserData() {
+    this.httpService
+      .post(this.loginForm.value, `/auth/login?captcha=false`)
+      .subscribe({
+        next: (data: any) => {
+          localStorage.setItem('token', data.token);
+          this.router.navigateByUrl('/user/my-profile');
+        },
+        error: (err) => {
+          alert(err.error.message);
+        },
+      });
   }
 
   checkCaptcha(): void {
-    this.recaptchaV3Service.execute('importantAction').subscribe( token => {
-      this.loginForm.value.captcha = token
-    })
+    this.recaptchaV3Service.execute('importantAction').subscribe((token) => {
+      this.loginForm.value.captcha = token;
+    });
   }
 
-  forgotPassword(){
-      this.httpService.set(this.loginForm.value.email, '/auth/forgot-password').subscribe(data => {
-          console.log(data);
-
-      })
-
-
+  forgotPassword() {
+    this.httpService
+      .post({ email: this.loginForm.value.email }, '/auth/forgot-password')
+      .subscribe({
+        next: (data) => {
+          this.router.navigateByUrl('/auth/reset-password');
+        },
+        error: (err) => {
+          this.errorMessage = err.error.message;
+        },
+      });
   }
 
+  socialLogin(){
+    console.log('hii');
+
+    this.authService
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((data) => {
+        this.httpService.post({token: data.idToken},"/auth/login/google").subscribe({
+          next: res => console.log(res),
+          error: err => console.log(err)
+        })
+      });
+  }
 }
