@@ -50,7 +50,7 @@ export class LoginGuard implements CanActivate {
         return true
 
       }
-      this.router.navigateByUrl('/user/my-profile')
+      this.router.navigateByUrl('/home/my-profile')
       return false;
   }
 }

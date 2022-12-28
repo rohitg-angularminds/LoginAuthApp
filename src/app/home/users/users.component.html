@@ -1,4 +1,6 @@
 <app-header></app-header>
+<app-error-toast [errorMessage]="errorMessage"></app-error-toast>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -57,20 +59,6 @@
       <div class="modal-footer">
 
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- toast -->
-
-<div class="position-fixed top-0 start-0 ps-3 col-12" style="z-index: 11;">
-  <div id="liveToast" class="toast mx-auto mt-5 bg-danger" [class.show]="errorMessage !== undefined"  role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Error</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      {{errorMessage}}
     </div>
   </div>
 </div>
@@ -150,7 +138,7 @@
       <li class="page-item " *ngIf="first" [class.disabled]="currentPage==1">
         <a class="page-link" (click)="prevPage()">Previous</a>
       </li>
-      <li class="page-item" (click)="changePage($event)"><a class="page-link">{{i+1}}</a></li>
+      <li class="page-item" (click)="changePage($event)" [ngClass]="currentPage== i+1 ? 'active' : ''"><a class="page-link">{{i+1}}</a></li>
       <li class="page-item" *ngIf="last" [class.disabled]="currentPage== pagesArray.length" >
         <a class="page-link" (click)="nextPage()">Next</a>
       </li>

@@ -5,9 +5,12 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RecaptchaModule } from 'ng-recaptcha';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { SharedModule } from "../shared/shared.module";
+
+
 
 const google_clientid = "893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com";
 
@@ -18,28 +21,27 @@ const google_clientid = "893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.goog
         RegistrationComponent,
         VerifyEmailComponent
     ],
+    providers: [
+        {
+            provide: "SocialAuthServiceConfig",
+            useValue: {
+                authLogin: false,
+                providers: [{
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(google_clientid)
+                    }]
+            } as SocialAuthServiceConfig
+        }
+    ],
     imports: [
         CommonModule,
         AuthRoutingModule,
         ReactiveFormsModule,
-        RecaptchaModule,
         RouterModule,
         FormsModule,
         SocialLoginModule,
-    ],
-    providers: [
-      {
-        provide: "SocialAuthServiceConfig",
-        useValue: {
-           authLogin: false,
-           providers: [{
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              google_clientid
-            )
-           }]
-        }as SocialAuthServiceConfig
-      }
+        RecaptchaModule,
+        SharedModule
     ]
 })
 export class AuthModule { }

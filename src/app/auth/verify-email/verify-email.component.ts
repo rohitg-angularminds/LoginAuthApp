@@ -31,7 +31,6 @@ export class VerifyEmailComponent implements OnInit {
           this.verified = true;
         },
         error: (err) => {
-          console.log(err);
           this.errorMessage = err.error.message;
 
         },

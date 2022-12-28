@@ -9,10 +9,10 @@ import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-list-users',
-  templateUrl: './list-users.component.html',
-  styleUrls: ['./list-users.component.scss'],
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss'],
 })
-export class ListUsersComponent implements OnInit {
+export class UsersComponent implements OnInit {
   searchValue: any;
   constructor(private fb: FormBuilder, public httpService: HttpService) {}
 
@@ -32,7 +32,8 @@ export class ListUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserList();
-    this.loggedInUser = localStorage.getItem('loggedUserId');
+
+    this.loggedInUser = JSON.parse(localStorage.getItem('userDetails') || '')['_id'];
 
     this.newuserForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),

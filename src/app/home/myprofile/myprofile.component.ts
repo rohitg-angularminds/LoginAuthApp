@@ -16,6 +16,7 @@ export class MyprofileComponent implements OnInit {
   loggedUserId! : any;
   company!: any;
   isVerified: boolean = false;
+  errorMessage: any = undefined;
 
 
   constructor(public service: LocalstorageService,
@@ -34,23 +35,26 @@ export class MyprofileComponent implements OnInit {
 
 
 
-   this.httpService.get('/auth/self').subscribe({next : (data:any) => {
-          this.loggedUserId = data['_id'];
-          localStorage.setItem('loggedUserId', this.loggedUserId);
+   this.httpService.get('/auth/self').subscribe({
+    next : (data:any) => {
           this.username = data?.name;
           this.useremail = data?.email
           this.company = data._org?.name
           this.isVerified = data.isEmailVerified
-          console.log(data)
+          localStorage.setItem('userDetails',JSON.stringify(data))
     }})
 
     }
 
     sendVerfmail(){
-      this.httpService.post('', '/auth/send-verification-email').subscribe(data => {
+      this.httpService.post('', '/auth/send-verification-email').subscribe({
+        next: data => {
         this.router.navigateByUrl('/auth/verify-email')
+      },error: err => {
+        this.errorMessage = err.error.message;
+      }
 
-      })
+    })
     }
 
 

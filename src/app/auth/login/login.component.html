@@ -1,3 +1,6 @@
+<app-error-toast [errorMessage]="errorMessage"></app-error-toast>
+
+
 <!-- forgot password modal -->
 
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,21 +25,6 @@
       <div class="modal-footer">
 
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- error toast
--->
-<div class="position-fixed top-0 start-0 ps-3 col-12" style="z-index: 11;">
-  <div id="liveToast" class="toast mx-auto mt-5 bg-danger" [class.show]="errorMessage !== undefined" role="alert"
-    aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <strong class="me-auto">Error</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      {{errorMessage}}
     </div>
   </div>
 </div>
@@ -73,15 +61,11 @@
         </small>
       </div>
       <div class=" mx-auto d-flex justify-content-between align-items-center">
-        <div style="height:50px; ">
-          <input type="checkbox" [formControlName]="'captcha'" (click)="checkCaptcha()" class="m-2"> I am not a robot
-          <img src="../../../assets/captcha-img.png" alt="recaptcha logo" style=" height:100%;object-fit: contain;" />
-        </div>
       </div>
       <div class="mt-2  d-flex flex-column flex-sm-row justify-content-between align-items-center">
         <button type="submit" [disabled]="!loginForm.valid"
-          class="btn btn-outline-light border-0 rounded-0 px-5 fs-5 my-3 ms-md-3 text-uppercase" style="background: #2f0000;
-          color: rgb(247, 216, 184);  ">Login</button>
+          class="btn btn-outline-light border-0 rounded-0 px-5 fs-5 my-3 ms-md-3 text-uppercase flex-shrink-0" style="background: #2f0000;
+          color: rgb(247, 216, 184)">Login</button>
         <a href="#" class="text-decoration-none " style="color: #2f0000;" [routerLink]="'/auth/register'">Create
           account </a>
       </div>

@@ -1,5 +1,6 @@
 
 <p *ngIf="verified">user verified successfully</p>
+<app-error-toast [errorMessage]="errorMessage"></app-error-toast>
 
 <button class="btn btn-primary" [routerLink]="'/user/my-profile'" >View profile</button>
 

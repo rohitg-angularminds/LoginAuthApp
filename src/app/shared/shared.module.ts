@@ -4,13 +4,15 @@ import { FooterComponent } from './footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ErrorToastComponent } from './error-toast/error-toast.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorToastComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { RouterModule } from '@angular/router';
   exports: [
     HeaderComponent,
     FooterComponent,
+    ErrorToastComponent,
     ReactiveFormsModule,
     FormsModule,
   ]

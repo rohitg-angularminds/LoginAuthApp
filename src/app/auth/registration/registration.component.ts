@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { passwordValidator } from '../../validators/custom-validators';
 import { HttpService } from 'src/app/services/http.service';
-import { ReCaptchaV3Service } from 'ng-recaptcha';
+
 
 @Component({
   selector: 'app-registration',
@@ -24,11 +24,11 @@ export class RegistrationComponent implements OnInit {
     public userService: LocalstorageService,
     private httpService: HttpService,
     private router: Router,
-    private recaptchaV3Service: ReCaptchaV3Service,
   ) {}
 
   registrationForm!: FormGroup;
-  url: string = '/auth/register?captcha=false';
+  errorMessage: any = undefined;
+
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group(
@@ -55,7 +55,7 @@ export class RegistrationComponent implements OnInit {
             '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&].{8,}'
           ),
         ]),
-        captcha: new FormControl('', [Validators.required]),
+        captcha: new FormControl(''),
       },
       { validator: passwordValidator('password', 'confirmpassword') }
     );
@@ -65,21 +65,23 @@ export class RegistrationComponent implements OnInit {
 
     delete this.registrationForm.value['confirmpassword'];
 
-    this.httpService.post(this.registrationForm.value, this.url).subscribe({
-      next: (users: any) => {
-        this.router.navigateByUrl('/auth/login');
-      },
-      error: (err) => {
-        alert(err.error.message);
-      },
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute('6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI', {
+          action: 'submit',
+        })
+        .then((token) => {
+          this.registrationForm.value.captcha = token;
+          console.log(this.registrationForm.value)
+          this.httpService.post(this.registrationForm.value,'/auth/register').subscribe({
+            next: (users: any) => {
+              this.router.navigateByUrl('/auth/login');
+            },
+            error: (err) => {
+              this.errorMessage = err.error.message;
+            },
+          });
+        });
     });
   }
-
-
-  checkCaptcha(): void {
-    this.recaptchaV3Service.execute('importantAction').subscribe( token => {
-      this.registrationForm.value.captcha = token
-    })
-  }
-
 }

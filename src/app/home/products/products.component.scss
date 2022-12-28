@@ -1,0 +1,22 @@
+.dropdown-toggle::after {
+  margin-left: 10em;
+}
+
+.checked {
+  color: orange;
+}
+
+*{
+  font-family: 'work Sans', 'sans-serif';
+}
+
+.text-truncate {
+  white-space:normal;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+form label{
+  color:#2a431c;
+}

@@ -1,3 +1,6 @@
+<app-error-toast [errorMessage]="errorMessage"></app-error-toast>
+
+
 <div class="main d-flex flex-column justify-content-center align-items-center ">
   <h3 CLASS="fw-bold  " style="color: #2f0000;">REGISTRATION </h3>
 
@@ -60,14 +63,6 @@
         <small border-0 rounded-0 *ngIf="registrationForm.errors?.['misMatch'] " class="error-msg">
           !password is mismatch
         </small>
-      </div>
-      <div class="my-3 col-sm-10 d-flex justify-content-between align-items-center" style=" height:50px;  " >
-        <div>
-          <input type="checkbox" [formControlName]="'captcha'" (click)="checkCaptcha()" class="m-2"> I am not a robot
-        </div>
-        <img
-          src="../../../assets/captcha-img.png"
-          alt="recaptcha logo" style=" height:100%;object-fit: contain; " />
       </div>
       <div class=" d-flex flex-column  align-items-center">
         <button type="submit " [disabled]="!registrationForm.valid"
