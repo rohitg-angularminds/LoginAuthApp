@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.httpService.post(this.loginForm.value, `/auth/login`).subscribe({
       next: (data: any) => {
         localStorage.setItem('token', data.token);
-        this.router.navigateByUrl('/home/my-profile');
+        this.router.navigateByUrl('//my-profile');
       },
       error: (err) => {
         alert(err.error.message);

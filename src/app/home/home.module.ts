@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 import { SharedModule } from "../shared/shared.module";
 import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 
 
@@ -17,6 +18,7 @@ import { ProductsComponent } from './products/products.component';
         UsersComponent,
         ResetPasswordComponent,
         ProductsComponent,
+        ProductDetailsComponent,
     ],
     imports: [
         CommonModule,

@@ -27,7 +27,7 @@ export class HttpService {
   }
 
   patch(url: string, formData: any) {
-    console.log(formData);
+    // console.log(formData);
     return this.http.patch(`${this.baseURL}${url}`, formData);
   }
 }

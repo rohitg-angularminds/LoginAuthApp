@@ -19,5 +19,9 @@ export class LocalstorageService {
     localStorage.removeItem('token');
   }
 
+  getProductid(){
+    return localStorage.getItem('productId')
+  }
+
 
 }

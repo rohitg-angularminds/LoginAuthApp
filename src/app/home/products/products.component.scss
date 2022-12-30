@@ -1,14 +1,16 @@
 .dropdown-toggle::after {
-  margin-left: 10em;
+  content: '';
+  display: none;
 }
 
 .checked {
   color: orange;
 }
 
-*{
+body{
   font-family: 'work Sans', 'sans-serif';
 }
+
 
 .text-truncate {
   white-space:normal;
@@ -17,6 +19,13 @@
   -webkit-box-orient: vertical;
 }
 
-form label{
-  color:#2a431c;
-}
+  form label{
+    color:#2a431c;
+  }
+
+ @media screen and (max-width:390px) {
+   .btn-group{
+     width: 30%;
+   }
+  
+ }

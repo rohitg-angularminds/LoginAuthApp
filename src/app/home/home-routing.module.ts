@@ -5,6 +5,7 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
 import { UsersComponent } from './users/users.component';
 import { ResetPasswordComponent } from '../auth/reset-password/reset-password.component';
 import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,17 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: ProductsComponent,
+    // component: ProductsComponent,
+    children: [
+      {
+        path: 'product-details',
+        component: ProductDetailsComponent,
+      },
+      {
+        path: '',
+        component: ProductsComponent,
+      }
+    ],
   },
 ];
 

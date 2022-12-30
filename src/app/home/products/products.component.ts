@@ -12,6 +12,11 @@ export class ProductsComponent implements OnInit {
   imagesArray: any = [] || null;
   products: Array<any> = [];
   images : Array<any> = [];
+  limit: number = 5;
+  currentPage: number = 1;
+  searchInput: string = ''
+  queryparams: string = `?limit=${this.limit}&page=${this.currentPage}`;
+  pagesArray: any[] = [];
 
   constructor(private http: HttpService) {}
 
@@ -26,8 +31,10 @@ export class ProductsComponent implements OnInit {
     this.getProductList();
   }
 
+// function for create new product ---------
+
   createProduct() {
-    // array crated of filelist object
+    // array created of filelist object
     const arr = Object.values(this.imagesArray);
 
     var formData = new FormData();
@@ -35,14 +42,14 @@ export class ProductsComponent implements OnInit {
     formData.append('description', this.createProductForm.value.description);
     formData.append('price', this.createProductForm.value.price);
 
-    // map is used to send each image of arr array
+    // map is used to send each image of an array
     arr.map((image: any) => {
       formData.append('images', image);
     });
 
     this.http.post(formData, '/products').subscribe({
       next: (response) => {
-        console.log(response);
+        this.getProductList();
       },
       error: (error) => {
         console.log(error);
@@ -50,7 +57,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // function for selecting images
+  // function for selecting images -------
   uploadImage(event: any): void {
     this.imagesArray = (event.target as HTMLInputElement).files;
     this.createProductForm.patchValue({
@@ -60,29 +67,40 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList(): any {
-    this.http.get('/products?limit=8').subscribe({
+    if (this.searchInput == '') {
+      this.queryparams = `?limit=${this.limit}&page=${this.currentPage}`;
+    } else {
+      this.queryparams = `?limit=${this.limit}&page=${this.currentPage}&name=${this.searchInput}`;
+    }
+    
+    this.http.get(`/products${this.queryparams}`).subscribe({
       next: (data: any) => {
-        console.log(data.results);
+        console.log(data);
         this.products = data.results;
-
+        this.pagesArray.length  = data.totalPages
+        this.pagesArray.fill(0);
       },
     });
   }
 
-  deleteProduct(productId : string){
-// console.log(productId);
-this.http.delete(`/products/${productId}`).subscribe({
-  next: (response) => {
+
+  changePage(e: any) {
+    this.currentPage = parseInt(e.target.innerText);
     this.getProductList();
-  },
-  error: (err) => {console.log(err)},
-
-})
   }
 
-  updateProduct(productId : string){
-    
-
+  prevPage() {
+    this.currentPage -= 1;
+    this.getProductList();
   }
 
+  nextPage() {
+    this.currentPage += 1;
+    this.getProductList();
+  }
+
+  updateLimit(e: any) {
+    this.limit = parseInt(e.target.innerHTML);
+    this.getProductList();
+  }
 }
