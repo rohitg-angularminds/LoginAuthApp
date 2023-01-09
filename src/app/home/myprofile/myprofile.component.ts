@@ -49,7 +49,7 @@ export class MyprofileComponent implements OnInit {
     sendVerfmail(){
       this.httpService.post('', '/auth/send-verification-email').subscribe({
         next: data => {
-        this.router.navigateByUrl('/auth/verify-email')
+        this.router.navigateByUrl('/seller/auth/verify-email')
       },error: err => {
         this.errorMessage = err.error.message;
       }

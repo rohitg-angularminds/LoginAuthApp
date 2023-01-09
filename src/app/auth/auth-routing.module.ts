@@ -6,9 +6,14 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginGuard } from '../guards/profile.guard';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 const routes : Routes    = [
-
+// {
+//   path:'',
+//   redirectTo: 'auth/login',
+//   pathMatch:'full'
+// }
     {
       path:'login',
       component: LoginComponent,

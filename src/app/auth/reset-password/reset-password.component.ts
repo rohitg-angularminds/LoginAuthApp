@@ -50,7 +50,7 @@ export class ResetPasswordComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          this.router.navigateByUrl('/auth/login');
+          this.router.navigateByUrl('/seller/auth/login');
         },
         error: (err) => {
             this.errorMessage = err.error.message;

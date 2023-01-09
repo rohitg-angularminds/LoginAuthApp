@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  ReactiveFormsModule,
   FormGroup,
   FormControl,
   FormBuilder,
@@ -70,12 +69,12 @@ export class RegistrationComponent implements OnInit {
         .execute('6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI', {
           action: 'submit',
         })
-        .then((token) => {
+        .then((token:any) => {
           this.registrationForm.value.captcha = token;
           console.log(this.registrationForm.value)
           this.httpService.post(this.registrationForm.value,'/auth/register').subscribe({
             next: (users: any) => {
-              this.router.navigateByUrl('/auth/login');
+              this.router.navigateByUrl('/seller/auth/login');
             },
             error: (err) => {
               this.errorMessage = err.error.message;

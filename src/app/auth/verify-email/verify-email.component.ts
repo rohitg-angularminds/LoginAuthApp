@@ -27,12 +27,10 @@ export class VerifyEmailComponent implements OnInit {
       .post('', `/auth/verify-email?token=${this.userToken}`)
       .subscribe({
         next: (res) => {
-          console.log(res);
           this.verified = true;
         },
         error: (err) => {
           this.errorMessage = err.error.message;
-
         },
       });
 

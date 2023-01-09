@@ -3,7 +3,6 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.httpService.post(this.loginForm.value, `/auth/login`).subscribe({
       next: (data: any) => {
         localStorage.setItem('token', data.token);
-        this.router.navigateByUrl('//my-profile');
+        this.router.navigateByUrl('/seller/my-profile');
       },
       error: (err) => {
         alert(err.error.message);
@@ -77,7 +76,7 @@ getCaptcha(){
       .post({ email: this.loginForm.value.email }, '/auth/forgot-password')
       .subscribe({
         next: (data) => {
-          this.router.navigateByUrl('/auth/reset-password');
+          this.router.navigateByUrl('/seller/auth/reset-password');
         },
         error: (err) => {
           this.errorMessage = err.error.message;
@@ -88,11 +87,11 @@ getCaptcha(){
   socialLogin() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((data) => {
       this.httpService
-        .post({ token: data.idToken }, '/auth/login/google')
+        .post({ token: data.idToken }, '/seller/auth/login/google')
         .subscribe({
           next: (res) => {
             localStorage.setItem('token', res.token);
-            this.router.navigateByUrl('/home/my-profile');
+            this.router.navigateByUrl('/seller/my-profile');
           },
           error: (err) => console.log(err),
         });

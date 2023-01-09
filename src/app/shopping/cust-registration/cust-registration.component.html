@@ -1,0 +1,111 @@
+<p>cust-registration works!</p>
+
+<app-error-toast [errorMessage] = "errorMessage"></app-error-toast>
+
+
+<div class="container-md p-5">
+  <div class="card mx-auto" >
+    <div class="row g-0">
+      <div class="col-md-7 text-light" style="background-color: #7d543e;">
+        <div class="card-body p-5">
+          <form [formGroup]="customerRegstrationForm" (ngSubmit)="customerRegistration()">
+            <div class=" mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                [formControlName]="'email'"
+                class="form-control"
+                aria-describedby="emailHelp"
+              />
+              <div *ngIf="customerRegstrationForm.controls['email'].touched">
+                <small
+                  class="text-danger"
+                  *ngIf="customerRegstrationForm.controls['email'].errors?.['email']"
+                >
+                  *Invalid email</small
+                >
+              </div>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label"
+                >Name</label
+                >
+                <input
+                type="text"
+                [formControlName]="'name'"
+                class="form-control"
+                />
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm ">
+                    <label for="exampleInputPassword1" class="form-label"
+                      >Create Password</label
+                    >
+                    <input
+                      type="password"
+                      [formControlName]="'create_password'"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-sm ">
+                    <label for="exampleInputPassword1" class="form-label"
+                      >Confirm Password</label
+                    >
+                    <input
+                      type="password"
+                      [formControlName]="'password'"
+                      class="form-control"
+                    />
+                  </div>
+            </div>
+            <div class= "row mb-3" [formGroupName]="'address'">
+                <div class="col-12 mb-2">
+                    <label for="inputAddress" class="form-label">Street/colony</label>
+                    <input type="text" class="form-control" [formControlName]="'street'">
+                  </div>
+                  <div class="col-12 mb-2">
+                    <label for="inputAddress2" class="form-label">Area/Locality</label>
+                    <input type="text" class="form-control" [formControlName]="'addressLine2'" >
+                  </div>
+                  <div class="col-md">
+                    <label for="inputState" class="form-label">State</label>
+                    <select  class="form-select" [formControlName]="'state'">
+                      <option selected>select state</option>
+                      <option>Maharashtra</option>
+                      <option>Karnataka</option>
+                    </select>
+                  </div>
+                  <div class="col-md mb-2">
+                    <label for="inputCity" class="form-label">City</label>
+                    <select class="form-select" [formControlName]="'city'">
+                        <option selected>select city</option>
+                        <option>Pune</option>
+                        <option>Mumbai</option>
+                        <option>Bangalore</option>
+                      </select>
+                  </div>
+                  <div class="col-3">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" [formControlName]="'pin'">
+                  </div>
+            </div>
+
+            <button
+            type="submit"
+            [disabled]="customerRegstrationForm.invalid"
+            class="btn btn-primary rounded-0"
+            >
+              Register
+            </button>
+          </form>
+          <small>if already registered <a href="#" [routerLink]="'/login'">login</a> </small>
+          
+        </div>
+      </div>
+      <div class="col-md-5">
+        <img src="../../../assets/gabriel-jimenez-jin4W1HqgL4-unsplash.jpg" class="img-fluid rounded-start" alt="..." />
+      </div>
+    </div>
+  </div>
+</div>
+

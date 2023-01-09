@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, NavigationEnd} from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-products',
@@ -11,14 +13,27 @@ export class ProductsComponent implements OnInit {
   createProductForm!: FormGroup;
   imagesArray: any = [] || null;
   products: Array<any> = [];
-  images : Array<any> = [];
+  images: Array<any> = [];
   limit: number = 5;
   currentPage: number = 1;
-  searchInput: string = ''
+  searchInput: string = '';
   queryparams: string = `?limit=${this.limit}&page=${this.currentPage}`;
   pagesArray: any[] = [];
 
-  constructor(private http: HttpService) {}
+  constructor(
+    private http: HttpService,
+    private userService: LocalstorageService,
+    private router: Router
+    
+  ) {
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) { 
+        /* Your code goes here on every router change */
+        this.getProductList()
+        
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.createProductForm = new FormGroup({
@@ -31,7 +46,7 @@ export class ProductsComponent implements OnInit {
     this.getProductList();
   }
 
-// function for create new product ---------
+  // function for create new product ---------
 
   createProduct() {
     // array created of filelist object
@@ -67,22 +82,24 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductList(): any {
-    if (this.searchInput == '') {
-      this.queryparams = `?limit=${this.limit}&page=${this.currentPage}`;
-    } else {
-      this.queryparams = `?limit=${this.limit}&page=${this.currentPage}&name=${this.searchInput}`;
-    }
-    
+    this.queryparams =
+      this.searchInput == ''
+        ? `?limit=${this.limit}&page=${this.currentPage}`
+        : `?limit=${this.limit}&page=${this.currentPage}&name=${this.searchInput}`;
+
     this.http.get(`/products${this.queryparams}`).subscribe({
       next: (data: any) => {
         console.log(data);
         this.products = data.results;
-        this.pagesArray.length  = data.totalPages
+        this.pagesArray.length = data.totalPages;
         this.pagesArray.fill(0);
       },
     });
   }
 
+  setProductId(productId: any) {
+    this.userService.setProductId(productId);
+  }
 
   changePage(e: any) {
     this.currentPage = parseInt(e.target.innerText);

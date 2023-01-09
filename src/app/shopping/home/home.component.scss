@@ -1,0 +1,27 @@
+.dropdown-toggle::after {
+    content: '';
+    display: none;
+  }
+  
+  body{
+    font-family: 'work Sans', 'sans-serif';
+  }
+  
+  
+  .text-truncate {
+    white-space:normal;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  
+    form label{
+      color:#2a431c;
+    }
+  
+   @media screen and (max-width:390px) {
+     .btn-group{
+       width: 30%;
+     }
+    
+   }

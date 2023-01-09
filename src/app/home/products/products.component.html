@@ -71,7 +71,7 @@
           <div class="row mb-3">
             <label for="price" class="col-sm-4 col-form-label">price</label>
             <div class="col-sm-4 position-relative">
-              <!-- <i class="fa-solid fa-indian-rupee-sign position-absolute start-0"></i>
+              <i class="fa-solid fa-indian-rupee-sign position-absolute start-0"></i>
               <i class="fa fa-rupee-sign position-absolute start-0"></i> -->
               <input
                 type="text"
@@ -97,7 +97,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
       </div>
     </div>
   </div>
@@ -169,7 +169,7 @@
         <div
           class="card h-100 rounded-0 pointer"
           [routerLink]="'/products/product-details'"
-          [state]="{ productId: product._id }"
+          (click)="setProductId(product._id)"
         >
           <div
             class="overflow-hidden"
@@ -267,3 +267,4 @@
 </section>
 
 <!-- footer component -->
+<app-footer></app-footer>

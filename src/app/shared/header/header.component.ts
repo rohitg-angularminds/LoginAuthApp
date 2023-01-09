@@ -47,13 +47,14 @@ export class HeaderComponent implements OnInit {
 
   userLogout() {
     this.userService.deleteUserToken();
+    
   }
 
   updateCompanyInfo() {
     this.httpService
       .patch(`/users/org`, this.updateInfoForm.value)
       .subscribe((data: any) => {
-          this.router.navigateByUrl('/user/my-profile')
+          this.router.navigateByUrl('/seller/my-profile')
       });
   }
 

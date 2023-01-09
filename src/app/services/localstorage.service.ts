@@ -7,7 +7,6 @@ export class LocalstorageService {
   constructor() {}
 
   setUserToken(token :any){
-    console.log(token)
     localStorage.setItem('token',token);
   }
 
@@ -20,8 +19,11 @@ export class LocalstorageService {
   }
 
   getProductid(){
-    return localStorage.getItem('productId')
+    return localStorage.getItem('product_Id')
   }
 
+  setProductId(product_Id : any){
+      localStorage.setItem('product_Id', product_Id)
+  }
 
 }

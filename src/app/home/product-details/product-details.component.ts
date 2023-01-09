@@ -26,10 +26,6 @@ export class ProductDetailsComponent implements OnInit {
   productId: any = this.userService.getProductid();
 
   ngOnInit(): void {
-    // accessing dynamic data passed in routing and set to localstorage
-    if (this.productId === null) {
-      localStorage.setItem('productId', history.state.productId);
-    }
 
     // get product details using http service
     this.getProductDetails();
@@ -53,8 +49,8 @@ export class ProductDetailsComponent implements OnInit {
     // console.log(productId);
     this.http.delete(`/products/${productId}`).subscribe({
       next: (response) => {
-        // this.updateProductList();
-        this.router.navigateByUrl('//products');
+        this.router.navigateByUrl('/seller//products');
+        this.updateProductList();
       },
       error: (err) => {
         console.log(err);
@@ -90,9 +86,10 @@ getCurrentSize(event : any){
     
 }
 
-  // updateProductList(){
-  //   this.http.get('/products?limit=8').subscribe();
-  // }
+// function to update product list
+  updateProductList(){
+    this.http.get('/products?limit=8').subscribe();
+  }
 
 
   // funtion to get product details
@@ -118,8 +115,7 @@ uploadImage(event : any){
   // funtion to update product image
   updateImages(productId : any){
 
-    const imgArray = Object.values(this.selectedImages)
-    console.log(imgArray);
+    const imgArray = Object.values(this.selectedImages);
     
     var formData  = new FormData()
     formData.append('delete', this.updateImageForm.value.delete)

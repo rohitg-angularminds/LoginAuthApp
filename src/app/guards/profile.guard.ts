@@ -24,7 +24,7 @@ export class ProfileGuard implements  CanActivate {
      return true
 
       }
-      this.router.navigateByUrl('/auth/login');
+      this.router.navigateByUrl('/seller/auth/login');
       return false;
 
   }
@@ -50,7 +50,7 @@ export class LoginGuard implements CanActivate {
         return true
 
       }
-      this.router.navigateByUrl('//my-profile')
+      this.router.navigateByUrl('/seller/my-profile')
       return false;
   }
 }
