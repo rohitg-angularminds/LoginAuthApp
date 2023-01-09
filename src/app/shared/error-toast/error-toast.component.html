@@ -2,7 +2,7 @@
 <!-- error toast
 -->
 <div class="position-fixed top-0 start-0 ps-3 col-12" style="z-index: 11;">
-<div id="liveToast" class="toast mx-auto mt-5 bg-danger" [class.show]="errorMessage !== undefined" role="alert"
+<div id="liveToast" data-mdb-delay="3000" class="toast mx-auto mt-5 bg-danger" [class.show]="errorMessage !== undefined" role="alert"
     aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <strong class="me-auto">Error</strong>

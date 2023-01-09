@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ErrorToastComponent } from './error-toast/error-toast.component';
+import { SuccessToastComponent } from './success-toast/success-toast.component';
 
 
 
@@ -12,7 +13,8 @@ import { ErrorToastComponent } from './error-toast/error-toast.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ErrorToastComponent
+    ErrorToastComponent,
+    SuccessToastComponent
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { ErrorToastComponent } from './error-toast/error-toast.component';
     HeaderComponent,
     FooterComponent,
     ErrorToastComponent,
+    SuccessToastComponent,
     ReactiveFormsModule,
     FormsModule,
   ]
