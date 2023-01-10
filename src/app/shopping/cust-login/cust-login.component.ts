@@ -11,13 +11,14 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 })
 export class CustLoginComponent implements OnInit {
   constructor(
-    private http: HttpService, 
+    private http: HttpService,
     private userService: LocalstorageService,
     private router: Router
     ) {}
 
   customerLoginForm!: FormGroup;
-  @Output() errorMessage: any = undefined;
+  @Output() errorMessage: any;
+  @Output() successMessage:any;
 
   ngOnInit(): void {
     this.customerLoginForm = new FormGroup({
@@ -30,13 +31,14 @@ export class CustLoginComponent implements OnInit {
     this.http.post(this.customerLoginForm.value, '/shop/auth/login').subscribe({
       next: (response) => {
         this.userService.setUserToken(response.token)
+        this.successMessage = "logged in successfully"
         localStorage.setItem('customer',JSON.stringify(response.customer))
-        this.router.navigateByUrl('/home')
+        setTimeout(() => this.router.navigateByUrl('/home'),1000)
       },
       error: (err) => {
-        console.log("hii", err)
         this.errorMessage = err.error.message
-        // this.router.navigateByUrl('/login')
+        setTimeout(() => { this.errorMessage=undefined;}, 2000)
+        this.router.navigateByUrl('/login')
       },
     });
   }

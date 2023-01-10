@@ -1,48 +1,28 @@
-<p>cust-profile works!</p>
+<!-- navbar -->
+<app-cust-header [custLoggedStatus]="custLoggedStatus"></app-cust-header>
+
+<!--error toast alert  -->
+<app-error-toast [errorMessage] = "errorMessage"></app-error-toast>
 
 <!-- modal for add new address -->
-
-<div
-  class="modal fade"
-  id="addAddressModal"
-  tabindex="-1"
-  aria-labelledby="addAddressModal"
-  aria-hidden="true"
->
+<div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #f1dfb8">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Add new Address</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-          class="row mb-3"
-          [formGroup]="newAddressForm"
-          (ngSubmit)="
+        <form class="row mb-3" [formGroup]="newAddressForm" (ngSubmit)="
             addressId != undefined ? updateAddress() : addNewAddress()
-          "
-        >
+          ">
           <div class="col-12 mb-2">
             <label for="inputAddress" class="form-label">Street/colony</label>
-            <input
-              type="text"
-              class="form-control"
-              [formControlName]="'street'"
-            />
+            <textarea type="text" class="form-control" [formControlName]="'street'" ></textarea>
           </div>
           <div class="col-12 mb-2">
             <label for="inputAddress2" class="form-label">Area/Locality</label>
-            <input
-              type="text"
-              class="form-control"
-              [formControlName]="'addressLine2'"
-            />
+            <textarea type="text" class="form-control" [formControlName]="'addressLine2'"></textarea>
           </div>
           <div class="col-md">
             <label for="inputState" class="form-label">State</label>
@@ -68,28 +48,15 @@
           <!-- submit button -->
           <div class="modal-footer">
             <div *ngIf="addressId; then saveBtn; else addBtn"></div>
-            <ng-template #addBtn
-              ><button
-                type="submit"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                [disabled]="newAddressForm.invalid"
-              >
+            <ng-template #addBtn><button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                aria-label="Close" [disabled]="newAddressForm.invalid">
                 submit
-              </button></ng-template
-            >
+              </button></ng-template>
             <ng-template #saveBtn>
-              <button
-                type="submit"
-                class="btn btn-success"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                [disabled]="newAddressForm.invalid"
-              >
+              <button type="submit" class="btn btn-success" data-bs-dismiss="modal" aria-label="Close"
+                [disabled]="newAddressForm.invalid">
                 save changes
-              </button></ng-template
-            >
+              </button></ng-template>
           </div>
         </form>
       </div>
@@ -97,14 +64,8 @@
   </div>
 </div>
 
-<!-- delete confirmation modal -------- -->
-<div
-  class="modal fade"
-  id="deleteConfirmModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<!-- delete address confirmation modal -------- -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body">
@@ -114,12 +75,26 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           cancel
         </button>
-        <button
-          type="button"
-          class="btn btn-danger"
-          data-bs-dismiss="modal"
-          (click)="deleteAddress()"
-        >
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAddress()">
+          confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete account confirmation modal -------- -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure to delete this account?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          cancel
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAccount()">
           confirm
         </button>
       </div>
@@ -128,57 +103,41 @@
 </div>
 
 <!-- update info modal -->
-
-<div
-  class="modal fade"
-  id="updateprofileModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="updateprofileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+      <div class="modal-header" style="background-color: #f1dfb8">
+        <h1 class="modal-title fs-5 text-uppercase" id="staticBackdropLabel">
+          Update Info
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
       <div class="modal-body">
         <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfileInfo()">
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
-            <input
-              type="email"
-              [formControlName]="'email'"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
+            <input type="email" [formControlName]="'email'" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp" />
             <div *ngIf="updateProfileForm.controls['email'].touched">
-              <small
-                class="text-danger"
-                *ngIf="updateProfileForm.controls['email'].errors?.['email']"
-              >
-                *Invalid email</small
-              >
+              <small class="text-danger" *ngIf="updateProfileForm.controls['email'].errors?.['email']">
+                *Invalid email</small>
             </div>
           </div>
           <div class="mb-3">
             <label for="name" class="form-label">name</label>
-            <input
-              type="text"
-              [formControlName]="'name'"
-              class="form-control"
-            />
-            <small
-              class="text-danger"
-              *ngIf="updateProfileForm.controls['name'].errors?.['required'] && updateProfileForm.controls['name'].touched "
-            >
-              *Invalid email</small
-            >
+            <input type="text" [formControlName]="'name'" class="form-control" />
+            <small class="text-danger"
+              *ngIf="updateProfileForm.controls['name'].errors?.['required'] && updateProfileForm.controls['name'].touched ">
+              *Invalid email</small>
           </div>
           <div class="modal-footer">
-            <button
-              type="submit"
-              class="btn btn-success"
-              [disabled]="updateProfileForm.invalid"
-              data-bs-dismiss="modal"
-            >
+            <button type="submit" class="btn btn-success" [disabled]="updateProfileForm.invalid"
+              data-bs-dismiss="modal">
               save changes
             </button>
           </div>
@@ -190,94 +149,50 @@
 
 <!-- update profile photo modal -->
 <div>
-  <div
-  class="modal fade"
-  id="updatePhotoModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Profile photo</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div
-          class="mx-auto mb-3"
-          style="width: 200px; height: 200px; object-fit: contain"
-        >
-          <img
-            src="{{ customerDetails.picture }}"
-            class="rounded-circle"
-            style="width: 100%; height: 100%"
-            alt=""
-          />
+  <div class="modal fade" id="updatePhotoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Profile photo</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-warning mx-3"
-          data-bs-target="#exampleModalToggle2"
-          data-bs-toggle="modal"
-        >
-          update
-        </button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <div class="modal-body">
+          <div class="mx-auto mb-3" style="width: 200px; height: 200px; object-fit: contain">
+            <img src="{{ customerDetails.picture }}" class="rounded-circle" style="width: 100%; height: 100%" alt="" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning mx-3" data-bs-target="#exampleModalToggle2"
+            data-bs-toggle="modal">
+            update
+          </button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div
-  class="modal fade"
-  id="exampleModalToggle2"
-  aria-hidden="true"
-  tabindex="-1"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Upload image</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="formFileSm" class="form-label"
-            >Select file</label
-          >
-          <input
-            class="form-control form-control-sm"
-            (change)="uploadImage($event)"
-            id="formFileSm"
-            type="file"
-          />
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Upload image</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          class="btn btn-primary"
-          data-bs-target="#exampleModalToggle"
-          data-bs-toggle="modal"
-          (click)="updateProfilePic()"
-        >
-          upload
-        </button>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="formFileSm" class="form-label">Select file</label>
+            <input class="form-control form-control-sm" (change)="uploadImage($event)" id="formFileSm" type="file" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+            (click)="updateProfilePic()">
+            upload
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <!-- change password modal -->
@@ -285,67 +200,38 @@
 <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #f1dfb8">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Change password</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form
-            [formGroup]="changePasswordForm"
-            (ngSubmit)="changePassword(); changePasswordForm.reset()"
-          >
-            <div class="row mb-3">
-              <label for="email" class="col-sm-3 col-form-label"
-                >old password</label
-              >
-              <div class="col">
-                <input
-                  type="text"
-                  [formControlName]="'old_password'"
-                  class="form-control"
-                />
-              </div>
+        <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(); changePasswordForm.reset()">
+          <div class="row mb-3">
+            <label for="email" class="col-sm-3 col-form-label">old password</label>
+            <div class="col">
+              <input type="text" [formControlName]="'old_password'" class="form-control" />
             </div>
-            <div class="row mb-3">
-              <label for="name" class="col-sm-3 col-form-label"
-                >new password</label
-              >
-              <div class="col">
-                <input
-                  type="password"
-                  [formControlName]="'new_password'"
-                  class="form-control"
-                />
-              </div>
+          </div>
+          <div class="row mb-3">
+            <label for="name" class="col-sm-3 col-form-label">new password</label>
+            <div class="col">
+              <input type="password" [formControlName]="'new_password'" class="form-control" />
             </div>
-            <div class="row mb-3">
-              <label for="name" class="col-sm-3 col-form-label"
-                >confirm password</label
-              >
-              <div class="col">
-                <input
-                  type="password"
-                  [formControlName]="'password'"
-                  class="form-control"
-                />
-                <small
-                  *ngIf="changePasswordForm.errors?.['misMatch']  "
-                  class="text-danger"
-                >
-                  !password is mismatch
-                </small>
-              </div>
+          </div>
+          <div class="row mb-3">
+            <label for="name" class="col-sm-3 col-form-label">confirm password</label>
+            <div class="col">
+              <input type="password" [formControlName]="'password'" class="form-control" />
+              <small *ngIf="changePasswordForm.errors?.['misMatch']  " class="text-danger">
+                !password is mismatch
+              </small>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              [disabled]="!changePasswordForm.valid"
-              class="btn btn-success"
-              data-bs-dismiss="modal"
-            >
-              save
-            </button>
-          </form>
+          <button type="submit" [disabled]="!changePasswordForm.valid" class="btn btn-success" data-bs-dismiss="modal">
+            save
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -353,69 +239,57 @@
 
 <!-- profile section -->
 
-<div class="container-md p-4">
-  <div class="row p-md-3 border border-primary">
-    <div class="col-4">
-      <div id="list-example" class="list-group">
-        <a class="list-group-item list-group-item-action" href="#list-item-1"
-          >Personal Information</a
-        >
-        <a class="list-group-item list-group-item-action" href="#list-item-2"
-          >Saved Address 2</a
-        >
-        <a class="list-group-item list-group-item-action" href="#" data-bs-target="#changePasswordModal" data-bs-toggle="modal">
-          change password</a
-        >
-        <a class="list-group-item list-group-item-action" href="#list-item-4"
-          >orders</a
-        >
+<div class="container p-sm-5">
+  <div class="row p-sm-5" >
+    <div class="col-4" >
+      <div id="list-example" style=" background-color: #F6FBF4;" class="list-group">
+        <a class="list-group-item list-group-item-action" href="#list-item-1">Personal Information</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Saved Address</a>
+        <a class="list-group-item list-group-item-action" href="#" data-bs-target="#changePasswordModal"
+          data-bs-toggle="modal">
+          change password</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">orders</a>
       </div>
-      <div class="d-flex justify-content-around mt-5">
+      <div class="hstack gap-3 col-10 mx-auto mt-5">
         <button
-          class="btn btn-success"
-          (click)="fillProfileInfo()"
-          data-bs-target="#updateprofileModal"
-          data-bs-toggle="modal"
+          type="button"
+          class="btn border-0 btn-info text-uppercase text-light py-2"
+          style="background-color: #2C74B3"
+          (click)="customerLogout()"
         >
-          Update profile
+          Logout
         </button>
-        <button class="btn btn-primary" (click)="customerLogout()">Logout</button>
+        <button
+          type="button"
+          class="btn border-0 text-uppercase text-light py-2"
+          style="background-color: #6a040f"
+        data-bs-target="#deleteAccountModal"
+        data-bs-toggle="modal"
+        >
+          delete account
+        </button>
       </div>
-      <button class="btn btn-danger" (click)="deleteAccount()">Delete account</button>
-
     </div>
-    <div class="col-6 border border-danger overflow-auto" style="height: 450px">
-      <div
-        data-bs-spy="scroll"
-        data-bs-target="#list-example"
-        data-bs-smooth-scroll="true"
-        class="scrollspy-example"
-        tabindex="0"
-      >
+    <div class="col border rounded-2 overflow-auto" style="height: 450px; background-color: #F6FBF4;">
+      <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example"
+        tabindex="0">
         <!-- profile section -->
         <div id="list-item-1">
-          <div
-            class="mx-auto mb-3 position-relative"
-            style="width: 200px; height: 200px; object-fit: contain"
-          >
-            <img
-              src="{{ customerDetails.picture }}"
-              class="rounded-circle border border-secondary border-5"
-              style="width: 100%; height: 100%"
-              alt=""
-            />
+          <div class="mx-auto my-3 position-relative" style="width: 200px; height: 200px; object-fit: contain">
+            <img src="{{ customerDetails.picture }}" class="rounded-circle border border-secondary border-5"
+              style="width: 100%; height: 100%" alt="" />
 
-            <span
-              class="rounded-circle bg-secondary fs-3 position-absolute end-0 me-3 text-center bottom-0"
-              style="width: 43px; height: 43px"
-              data-bs-target="#updatePhotoModal"
-              data-bs-toggle="modal"
-            >
-              <i class="fa-solid fa-camera"> </i
-            ></span>
+            <span class="rounded-circle bg-secondary fs-3 position-absolute end-0 me-3 text-center bottom-0"
+              style="width: 43px; height: 43px" data-bs-target="#updatePhotoModal" data-bs-toggle="modal">
+              <i class="fa-solid fa-camera"> </i></span>
           </div>
 
           <div class="row p-3">
+            <p class=" text-uppercase fw-semibold">
+              Personal Details
+              <i class="far fa-edit ms-3 fs-5" (click)="fillProfileInfo()" data-bs-target="#updateprofileModal"
+                data-bs-toggle="modal"></i>
+            </p>
             <div class="col-sm">
               <p class="fw-light border-bottom d-inline-block pe-5">Name</p>
               <p>{{ customerDetails.name }}</p>
@@ -424,7 +298,7 @@
               <p class="fw-light border-bottom d-inline-block pe-5">Email</p>
               <p>{{ customerDetails.email }}</p>
             </div>
-            <p class="mt-3 fw-semibold">Contact Details</p>
+            <p class="mt-3 text-uppercase fw-semibold">Contact Details <i class="far fa-edit ms-3 fs-5"></i></p>
             <div class="row">
               <div class="col-sm">
                 <p class="fw-light border-bottom d-inline-block pe-5">Mobile</p>
@@ -439,35 +313,22 @@
         </div>
 
         <!-- address section  -->
-        <div id="list-item-2">
+        <div class="p-3" id="list-item-2">
 
-          <p class="mt-3 fw-semibold">Saved Adresses</p>
+          <p class="my-3 text-uppercase fw-semibold">Saved Addresses</p>
 
           <div class="accordion">
-            <div
-              class="accordion-item"
-              *ngFor="let address of customerAddress; index as i"
-            >
+            <div class="accordion-item" *ngFor="let address of customerAddress; index as i">
               <h2 class="accordion-header" id="headingOne">
-                <div
-                  class="accordion-button text-dark"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
+                <div class="accordion-button text-dark" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   <p class="text-truncate p-1">
                     {{ address.street }} ,{{ address.addressLine2 }}
                   </p>
                 </div>
               </h2>
-              <div
-                id="collapseOne"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample"
-              >
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <p>{{ address.street }}</p>
                   <p>{{ address.addressLine2 }}</p>
@@ -475,20 +336,12 @@
                     {{ address.city }}, {{ address.state }}, {{ address.pin }}
                   </p>
                   <div class="text-end">
-                    <button
-                      class="btn btn-warning btn-sm mx-3"
-                      data-bs-toggle="modal"
-                      data-bs-target="#addAddressModal"
-                      (click)="getaddressId(address._id)"
-                    >
+                    <button class="btn btn-warning btn-sm mx-3" data-bs-toggle="modal" data-bs-target="#addAddressModal"
+                      (click)="getaddressId(address._id)">
                       update
                     </button>
-                    <button
-                      class="btn btn-danger btn-sm"
-                      (click)="getaddressId(address._id)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#deleteConfirmModal"
-                    >
+                    <button class="btn btn-danger btn-sm" (click)="getaddressId(address._id)" data-bs-toggle="modal"
+                      data-bs-target="#deleteConfirmModal">
                       delete
                     </button>
                   </div>
@@ -496,19 +349,14 @@
               </div>
             </div>
 
-            <button
-              class="btn btn-secondary my-3"
-              
-              data-bs-toggle="modal"
-              data-bs-target="#addAddressModal"
-            >
+            <button class="btn btn-secondary my-3" data-bs-toggle="modal" data-bs-target="#addAddressModal">
               Add new address
             </button>
           </div>
         </div>
 
         <div id="list-item-3">
-          
+
         </div>
 
         <div id="list-item-4"></div>

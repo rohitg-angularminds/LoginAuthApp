@@ -1,13 +1,13 @@
 
 
-<div class="position-fixed top-0 start-0 ps-3 col-12" style="z-index: 11;">
-    <div id="liveToast" data-mdb-delay="3000" class="toast mx-auto mt-5 bg-success" [class.show]="successMessage !== undefined" role="alert"
+<div class="position-fixed top-0 start-0 ps-3 col-12 mt-5"  style="z-index: 11;">
+    <div id="liveToast" class="toast mx-auto mt-5 bg-success" data-bs-delay="2000" [class.show]="successMessage !== undefined"  role="alert"
         aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <strong class="me-auto">success!</strong>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
+        <div class="toast-body bg-success">
           {{successMessage}}
         </div>
       </div>

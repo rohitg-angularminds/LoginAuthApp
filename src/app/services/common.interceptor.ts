@@ -23,7 +23,7 @@ export class CommonInterceptor implements HttpInterceptor {
         this.userService.deleteUserToken();
         this.router.navigateByUrl('/auth/login')
       }
-      return throwError(() =>  new Error(err.message));
+      return throwError(() => err);
 
   }
 

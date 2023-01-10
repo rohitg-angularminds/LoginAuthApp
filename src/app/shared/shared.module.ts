@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ErrorToastComponent } from './error-toast/error-toast.component';
 import { SuccessToastComponent } from './success-toast/success-toast.component';
+import { CustHeaderComponent } from './cust-header/cust-header.component';
 
 
 
@@ -14,7 +15,8 @@ import { SuccessToastComponent } from './success-toast/success-toast.component';
     HeaderComponent,
     FooterComponent,
     ErrorToastComponent,
-    SuccessToastComponent
+    SuccessToastComponent,
+    CustHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { SuccessToastComponent } from './success-toast/success-toast.component';
     HeaderComponent,
     FooterComponent,
     ErrorToastComponent,
+    CustHeaderComponent,
     SuccessToastComponent,
     ReactiveFormsModule,
     FormsModule,

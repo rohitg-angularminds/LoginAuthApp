@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { HttpService } from 'src/app/services/http.service';
 import {FormGroup, FormControl, Validators, Validator} from  '@angular/forms'
 import { passwordValidator } from 'src/app/validators/custom-validators';
@@ -27,22 +27,26 @@ export class CustProfileComponent implements OnInit {
   accordionArray : any = ['collapseOne','collapseTwo','collapseThree','collapseFour','collapseFive' ]
   addressId! : any
   selectedImages: any = [] || null;
-  updateImageForm! : FormGroup; 
+  updateImageForm! : FormGroup;
   profilePic!  : string ;
+
+  @Output() errorMessage: any;
+  @Output() custLoggedStatus: Boolean = this.isLoggedin()
+
 
   ngOnInit(): void {
 
     this.customerDetails = JSON.parse(localStorage.getItem('customer') || '');
       this.getcustomerAddress();
-      
+
       // new address form
     this.newAddressForm = new FormGroup({
       street: new FormControl(''),
       addressLine2 : new FormControl(''),
       city: new FormControl(''),
       state: new FormControl(''),
-      pin: new FormControl('') 
-    })    
+      pin: new FormControl('')
+    })
 
     // change password form
     this.changePasswordForm = new FormGroup ({
@@ -66,10 +70,10 @@ export class CustProfileComponent implements OnInit {
 
   getcustomerAddress(){
     this.http.get('/customers/address').subscribe({
-      next : (data) => { 
+      next : (data) => {
 
         console.log(this.customerAddress)
-          this.customerAddress = data 
+          this.customerAddress = data
       }
     })
   }
@@ -89,7 +93,7 @@ export class CustProfileComponent implements OnInit {
       next: (res) => {
          this.getcustomerAddress()
       }
-      
+
     })
   }
 
@@ -97,15 +101,19 @@ export class CustProfileComponent implements OnInit {
     this.http.delete(`/customers/address/${this.addressId}`).subscribe({
         next: (res) => {this.getcustomerAddress()}
     })
-    
+
   }
 
   changePassword(){
     delete this.changePasswordForm.value.password;
-    
+
     this.http.post(this.changePasswordForm.value, '/customers/auth/change-password').subscribe({
       next: (res) => {},
-      error: (err) => {console.log(err)}
+      error: (err) => {
+        this.errorMessage = err.error.message;
+        setTimeout(() => { this.errorMessage=undefined;}, 2000)
+
+      }
     })
   }
 
@@ -126,42 +134,49 @@ export class CustProfileComponent implements OnInit {
 
   updateProfilePic(){
     const imgArray = Object.values(this.selectedImages)
-    
+
     var formData = new FormData()
-    imgArray.map((img:any) => {  
+    imgArray.map((img:any) => {
       formData.append('picture',img)
     })
 
     this.http.post(formData,'/customers/profile-picture').subscribe({
-        next: (res) => { 
+        next: (res) => {
           this.profilePic = res.picture;
           this.customerDetails.picture = res.picture;
           localStorage.setItem('customer',JSON.stringify(this.customerDetails))
         }
-    })  
+    })
   }
 
   uploadImage(event : any){
     this.selectedImages = (event.target as HTMLInputElement).files
-    
+
     this.updateImageForm.patchValue({
       'picture' : this.selectedImages
     })
     this.updateImageForm.get('picture')?.updateValueAndValidity()
-    
+
 }
 
 customerLogout(){
   this.userService.deleteUserToken()
+  localStorage.removeItem('customer')
   this.router.navigateByUrl('/home')
 }
 
 deleteAccount(){
   this.http.delete('/customers/account').subscribe({
-    next: (res) => { 
+    next: (res) => {
+      this.userService.deleteUserToken();
+      this.custLoggedStatus = this.isLoggedin()
       this.router.navigateByUrl('/home');
     }
   })
+}
+
+isLoggedin(): Boolean{
+  return this.userService.getUserToken() !== null ? true : false;
 }
 
 }

@@ -1,12 +1,20 @@
-<p>cust-login works!</p>
+<!-- error alert toast -->
 <app-error-toast [errorMessage] = "errorMessage"></app-error-toast>
 
+<!-- seccess alert toast -->
+<app-success-toast [successMessage]="successMessage"></app-success-toast>
 
-<div class="container-md p-5">
-  <div class="card mx-auto" style="max-width: 700px">
+<!-- navbar -->
+<app-cust-header></app-cust-header>
+
+<!-- main container -->
+
+<div class="container-md p-5 mt-5">
+  <div class="card mx-auto  col-md-10 col-lg-9 " style="background-color: #B1D7B4" >
     <div class="row g-0">
-      <div class="col-md-8">
-        <div class="card-body p-3">
+      <div class=" col-sm-7">
+        <div class="card-body p-5">
+          <h4 class="text-center" style="color: #2a431c;">LOGIN</h4>
           <form [formGroup]="customerLoginForm" (ngSubmit)="customerLogin()">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -43,23 +51,26 @@
                 class="form-check-input"
                 id="exampleCheck1"
               />
-              <label class="form-check-label" for="exampleCheck1"
-                >Remember me</label
+              <label class="form-check-label fw-lighter" for="exampleCheck1"
+                >remember me</label
               >
             </div>
-            <button
-              type="submit"
-              [disabled]="customerLoginForm.invalid"
-              class="btn btn-primary"
-            >
-              LOGIN
-            </button>
+            <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row mt-5">
+              <button
+                type="submit"
+                [disabled]="customerLoginForm.invalid"
+                class="btn text-light btn-primary rounded-0"
+                style="background-color: #2a431c"
+              >
+                LOGIN
+              </button>
+              <a href="#" [routerLink]="'/registration'" class="text-decoration-none mt-2" style="color: #2a431c; ">create account</a>
+            </div>
           </form>
-          <a href="#" [routerLink]="'/registration'" class="text-decoration-none mt-2">create account</a>
         </div>
       </div>
-      <div class="col-md-4">
-        <img src="..." class="img-fluid rounded-start" alt="..." />
+      <div class="col-sm-5 d-none d-sm-block p-0 " style="object-fit: contain; height: 60vh; ">
+        <img src="../../../assets/farm-login.jpg" class="rounded-end" style="height: 100%; width: 100%;"  alt="..." />
       </div>
     </div>
   </div>

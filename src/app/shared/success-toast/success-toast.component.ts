@@ -12,6 +12,7 @@ export class SuccessToastComponent implements OnInit {
 @Input() successMessage :any;
 
   ngOnInit(): void {
+    console.log(this.successMessage)
   }
 
 }

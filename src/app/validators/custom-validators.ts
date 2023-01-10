@@ -8,7 +8,6 @@ export function passwordValidator(password : string,confirmpassword : string ): 
     const password1 = control.get(password)!.value
     const password2 = control.get(confirmpassword)!.value
 
-
     return password1 === password2 ? null : {misMatch: true} ;
    }
 
@@ -19,7 +18,7 @@ export function passwordValidator(password : string,confirmpassword : string ): 
 // /////////////////// Another way ////////////////
 
 
-// export function passwordValidator(
+// export function passwordValidator2(
 //    control: AbstractControl
 // ): { [key: string]: boolean } | null {
 //   const password = control.get('createpassword');

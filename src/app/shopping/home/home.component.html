@@ -1,199 +1,103 @@
+<app-cust-header [custLoggedStatus]="custLoggedStatus"></app-cust-header>
 
-<!-- <app-header></app-header> -->
-<nav class="navbar bg-light navbar-expand-md  sticky-top" style="box-shadow: 10px 0px 10px rgb(214, 205, 205);">
-    <div class="container-fluid d-flex align-items-center">
-      <a class="navbar-brand fs-sm-2 fw-bold mx-sm-3 d-md-none" style=" color : #935e38" href="#">THOPATE FARMS <sup
-          class="regd_mark">&#174;</sup></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-        aria-controls="offcanvasNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas w-75 offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div class="offcanvas-header">
-          <a class="offcanvas-title brand-heading-sm fs-5 fw-bold" style="color:#935e38" id="offcanvasNavbarLabel"
-            href="#">THOPATE FARMS <sup class="regd_mark">&#174;</sup></a>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body ">
-          <ul class="navbar-nav ms-md-5 justify-content-center align-items-md-center flex-grow-1 ">
-            <li class="nav-item  text-decoration-none fs-5">
-              <a class="nav-link active" aria-current="page" href="#">HOME</a>
-            </li>
-  
-<!--   
-            <li class="nav-item ms-md-5 text-decoration-none fs-5 dropdown">
-              <a class="nav-link" href="#" role="button" [routerLink]="'/seller/products'">
-                PRODUCTS
-              </a>
-            </li> -->
-          </ul>
-          <a class="navbar-brand fs-2 fw-bold mx-3 d-none d-md-block " [ngStyle]=" {'color' : '#935e38'}" href="#">THOPATE
-            FARMS <sup class=" fs-5">&#174;</sup></a>
-  
-          <ul class="navbar-nav me-md-5 justify-content-center align-items-md-center flex-grow-1 ">
-            <ng-template #profile> <li class="nav-item ms-md-5 text-decoration-none fs-5 dropdown">
-                <button  class="nav-link btn btn-outline-primary " href="#" role="button" [routerLink]="'/login'">
-                  Sign in
-                </button>
-              </li> 
-            </ng-template>
-            <li class="nav-item ms-md-3 text-decoration-none fs-5 dropdown">
-                
-              <a *ngIf="custLoggedStatus; else profile" class="nav-link dropdown-toggle ms-md-5" href="#"  data-bs-toggle="dropdown"
-                aria-expanded="false" [routerLink]="'/profile'">
-                <!-- <span>Hello, {{username}}</span> -->
-                <i class="fa-regular fa-user-circle fs-3 "></i>
-            </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-  
-    </div>
-  
-  </nav>
 
 
 
 <!-- main container -->
 
 <div class="container-lg py-3">
-    <div class="row mt-3 d-flex justify-content-between px-3">
-      <!-- search bar -->
-      <div class="d-flex position-relative align-items-center col-4 col-sm-3">
-        <i class="fa fa-search icon position-absolute end-0 p-3"></i>
-        <input
-          type="search"
-          id="form1"
-          class="form-control rounded-0 p-2"
-          placeholder="search"
-          aria-label="Search"
-        />
-      </div>
-      <!-- sort by dropdown -->
-      <div class="dropdown col-4 col-sm-3">
-        <a
-          class="btn btn-light border w-md-100 px-3 p-2 dropdown-toggle rounded-0"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Sort by <i class="fa-solid fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">name</a></li>
-          <li><a class="dropdown-item" href="#">price</a></li>
-          <li><a class="dropdown-item" href="#">best selling</a></li>
-        </ul>
-      </div>
+  <div class="row mt-3 d-flex justify-content-between px-3">
+    <!-- search bar -->
+    <div class="d-flex position-relative align-items-center col-4 col-sm-3">
+      <i class="fa fa-search icon position-absolute end-0 p-3"></i>
+      <input type="search" id="form1" class="form-control rounded-0 p-2" placeholder="search" aria-label="Search" />
     </div>
-  
-    <div class="container products-list-sec">
-      <!-- product heading  -->
-      <div class="text-center my-3">
-        <p class="fw-lighter">All products</p>
-      </div>
-      <!-- path history -->
-      <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#" class="text-decoration-none text-dark">Home</a>
-          </li>
-          /
-          <li class="breadcrumb-item active" aria-current="page"></li>
-        </ol>
-      </nav>
-  
-      <!-- product list cards -->
-      <div
-        class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-1 g-sm-4 product-list"
-      >
-        <div class="col" *ngFor="let product of shoppingProducts; index as i">
-          <div
-            class="card h-100 rounded-0 pointer"
-          >
-            <div
-              class="overflow-hidden"
-              style="height: 250px; object-fit: contain"
-            >
-              <img
-                src="{{ product.images[0].url }}"
-                alt=""
-                class="border border-1"
-                style="width: 100%; height: 100%"
-              />
-            </div>
-            <div class="card-body">
-              <p class="product-title fw-semibold fs-5" style="color: #2a431c">
-                {{ product.name  }}
-              </p>
-              <p class="product-title text-truncate" style="color: #2a431c">
-                {{ product.description }}
-              </p>
-              <small class="product-price"
-                >from
-                <span class="fw-semibold">{{
-                  product.price | currency : "INR"
-                }}</span></small
-              >
-            </div>
+    <!-- sort by dropdown -->
+    <div class="dropdown col-4 col-sm-3">
+      <a class="btn btn-light border sort-toggle w-md-100 px-3 p-2 dropdown-toggle rounded-0" type="button"
+        data-bs-toggle="dropdown"  aria-expanded="false">
+        Sort by <i class="fa-solid fa-caret-down"></i>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" (click)="updateSortBy($event)">
+        <li><a class="dropdown-item" value="name">name</a></li>
+        <li><a class="dropdown-item" >price</a></li>
+        <li><a class="dropdown-item" >best selling</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container products-list-sec">
+    <!-- product heading  -->
+    <div class="text-center my-3">
+      <p class="fw-lighter">All products</p>
+    </div>
+    <!-- path history -->
+    <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#" class="text-decoration-none text-dark">Home</a>
+        </li>
+        /
+        <li class="breadcrumb-item active" aria-current="page"></li>
+      </ol>
+    </nav>
+
+    <!-- product list cards -->
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-1 g-sm-4 product-list">
+      <div class="col" *ngFor="let product of shoppingProducts; index as i">
+        <div class="card h-100 rounded-0 pointer">
+          <div class="overflow-hidden" style="height: 250px; object-fit: contain">
+            <img src="{{ product.images[0].url }}" alt="" class="border border-1" style="width: 100%; height: 100%" />
+          </div>
+          <div class="card-body">
+            <p class="product-title fw-semibold fs-5" style="color: #2a431c">
+              {{ product.name }}
+            </p>
+            <p class="product-title text-truncate" style="color: #2a431c">
+              {{ product.description }}
+            </p>
+            <small class="product-price">from
+              <span class="fw-semibold">{{
+                product.price | currency : "INR"
+                }}</span></small>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- pagination  -->
-  <!-- <section
-    class="pagination-sec d-flex align-items-center justify-content-center mx-auto my-3"
-  >
-    <div class="btn-group dropdown-center h-75">
-      <button type="button" class="btn btn-light d-none d-md-block">
-        items per page
-      </button>
-      <button type="button" class="btn btn-light d-sm-none">items</button>
-      <button
-        type="button"
-        class="btn btn-light dropdown-toggle dropdown-toggle-split"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
+</div>
+
+ <!-- pagination  -->
+ <section class="pagination-sec d-flex align-items-center justify-content-center mx-auto my-3 ">
+  <div class="btn-group dropdown-center h-75">
+    <button type="button" class="btn btn-light d-none d-md-block">
+      items per page
+    </button>
+    <button type="button" class="btn btn-light d-sm-none">items</button>
+    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" (click)="updateLimit($event)" style="width: 10px !important">
+      <li><a class="dropdown-item" value="5">4</a></li>
+      <li><a class="dropdown-item" value="10">8</a></li>
+      <li><a class="dropdown-item" value="15">12</a></li>
+    </ul>
+  </div>
+
+  <div class="ms-sm-5">
+    <ul class="pagination mb-0 pagination-sm justify-content-center"
       >
-        <span class="visually-hidden">Toggle Dropdown</span>
-      </button>
-      <ul
-        class="dropdown-menu"
-        (click)="updateLimit($event)"
-        style="width: 10px !important"
-      >
-        <li><a class="dropdown-item" value="5">4</a></li>
-        <li><a class="dropdown-item" value="10">8</a></li>
-        <li><a class="dropdown-item" value="15">12</a></li>
-      </ul>
-    </div>
-  
-    <div class="ms-sm-5">
-      <ul
-        class="pagination mb-0 pagination-sm justify-content-center"
-        *ngFor="let page of pagesArray; index as i; first as first; last as last"
-      >
-        <li class="page-item" *ngIf="first" [class.disabled]="currentPage == 1">
-          <a class="page-link border-0" (click)="prevPage()">Previous</a>
-        </li>
-        <li
-          class="page-item"
-          (click)="changePage($event)"
-          [ngClass]="currentPage == i + 1 ? 'active' : ''"
-        >
-          <a class="page-link">{{ i + 1 }}</a>
-        </li>
-        <li
-          class="page-item"
-          *ngIf="last"
-          [class.disabled]="currentPage == pagesArray.length"
-        >
-          <a class="page-link border-0" (click)="nextPage()">Next</a>
-        </li>
-      </ul>
-    </div>
-  </section> -->
-  
+      <li class="page-item"[class.disabled]="currentPage == 1">
+        <a class="page-link border-0" (click)="prevPage()">Previous</a>
+      </li>
+      <li *ngFor="let page of pagesArray; index as i;" class="page-item" (click)="changePage($event)" [ngClass]="currentPage == i + 1 ? 'active' : ''">
+        <a *ngIf="i<=5" class="page-link">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage == pagesArray.length">
+        <a class="page-link border-0" (click)="nextPage()">Next</a>
+      </li>
+    </ul>
+  </div>
+</section>
+

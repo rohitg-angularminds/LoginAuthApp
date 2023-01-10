@@ -4,6 +4,7 @@ import { CustLoginComponent } from './cust-login/cust-login.component';
 import { CustRegistrationComponent } from './cust-registration/cust-registration.component';
 import { CustProfileComponent } from './cust-profile/cust-profile.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileGuard } from '../guards/seller.guard';
 
 const routes: Routes = [
 
@@ -26,7 +27,8 @@ const routes: Routes = [
   },
   {
     path:'profile',
-    component: CustProfileComponent
+    component: CustProfileComponent,
+    canActivate: [ProfileGuard]
   }
 ];
 
