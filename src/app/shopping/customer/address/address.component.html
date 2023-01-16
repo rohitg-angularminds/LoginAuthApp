@@ -1,0 +1,100 @@
+<!-- delete address confirmation modal -------- -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>Are you sure to delete this address?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          cancel
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAddress()">
+          confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card overflow-auto p-3 rounded-0" style="height:80vh;">
+
+  <!-- add address button -->
+  <div>
+    <button class="btn rounded-0 mb-3" style="background-color: #eae2b7;" data-bs-toggle="collapse"
+      data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i
+        class="fa-solid fa-plus"></i> add address</button>
+
+  </div>
+  <!-- add address collapse form -->
+  <div class="collapse mb-3" id="collapseExample">
+    <div class="card card-body">
+      <form class="row mb-3" [formGroup]="newAddressForm" (ngSubmit)="
+            addressId != undefined ? updateAddress() : addNewAddress(); newAddressForm.reset()
+          ">
+        <div class="col-12 mb-2">
+          <label for="inputAddress" class="form-label">Street/colony</label>
+          <textarea type="text" class="form-control" [formControlName]="'street'"></textarea>
+        </div>
+        <div class="col-12 mb-2">
+          <label for="inputAddress2" class="form-label">Area/Locality</label>
+          <textarea type="text" class="form-control" [formControlName]="'addressLine2'"></textarea>
+        </div>
+        <div class="col-md">
+          <label for="inputState" class="form-label">State</label>
+          <select class="form-select" [formControlName]="'state'">
+            <option selected>select state</option>
+            <option>Maharashtra</option>
+            <option>Karnataka</option>
+          </select>
+        </div>
+        <div class="col-md mb-2">
+          <label for="inputCity" class="form-label">City</label>
+          <select class="form-select" [formControlName]="'city'">
+            <option selected>select city</option>
+            <option>Pune</option>
+            <option>Mumbai</option>
+            <option>Bangalore</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="inputZip" class="form-label">Zip</label>
+          <input type="text" class="form-control" [formControlName]="'pin'" />
+        </div>
+        <div class="text-end p-2">
+          <button type="submit" class="btn rounded-0 text-light " style="background-color: #482307;"
+            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true"
+            aria-controls="collapseExample" [disabled]="newAddressForm.invalid">
+            submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- address list section -->
+  <div class="list-group rounded-0 mt-3" >
+    <li *ngFor="let address of customerAddress; index as i" class="list-group-item list-group-item-action"
+      aria-current="true" style="background-color: inherit;">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1" style="color:#482307">{{customerName}} <small class=" p-1 rounded-1 fw-light  ms-2 "
+            style="background-color:#f0eddb">Home</small> </h5>
+        <div class="dropdown ">
+          <a class="p-3" href="#" data-bs-toggle="dropdown" aria-expanded="false"> <i
+              class="fa-sharp fa-solid fa-ellipsis-vertical">
+            </i>
+          </a>
+          <ul class="dropdown-menu" style="background-color:#fcfbf5 ; color: #482307;">
+            <li><a class="dropdown-item" (click)="getaddressId(address._id, i)" href="#" data-bs-toggle="collapse"
+                data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">edit</a></li>
+            <li><a class="dropdown-item" data-bs-target="#deleteConfirmModal" data-bs-toggle="modal"
+                (click)="getaddressId(address._id, i)">delete</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="mb-1 address-text">{{address.street}}, {{address.addressLine2}}</p>
+      <small class="address-text">{{address.city}}, {{address.state}}, {{address.pin}}</small>
+    </li>
+  </div>
+</div>

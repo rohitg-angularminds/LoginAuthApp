@@ -1,0 +1,120 @@
+
+<!--error toast alert  -->
+
+
+
+
+
+<!-- change password modal -->
+
+<!-- <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #f1dfb8">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Change password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword(); changePasswordForm.reset()">
+          <div class="row mb-3">
+            <label for="email" class="col-sm-3 col-form-label">old password</label>
+            <div class="col">
+              <input type="text" [formControlName]="'old_password'" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="name" class="col-sm-3 col-form-label">new password</label>
+            <div class="col">
+              <input type="password" [formControlName]="'new_password'" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="name" class="col-sm-3 col-form-label">confirm password</label>
+            <div class="col">
+              <input type="password" [formControlName]="'password'" class="form-control" />
+              <small *ngIf="changePasswordForm.errors?.['misMatch']  " class="text-danger">
+                !password is mismatch
+              </small>
+            </div>
+          </div>
+
+          <button type="submit" [disabled]="!changePasswordForm.valid" class="btn btn-success" data-bs-dismiss="modal">
+            save
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- profile section -->
+
+<!-- <div class="container-md p-md-5" >
+  <div class="row  p-sm-3 p-md-5" >
+    <div class="col-12 mb-3 col-sm-4" >
+      <div id="list-example" style=" background-color: #F6FBF4;" class="list-group">
+        <a class="list-group-item list-group-item-action" href="#list-item-1">Personal Information</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-2">Saved Address</a>
+        <a class="list-group-item list-group-item-action" href="#" data-bs-target="#changePasswordModal"
+          data-bs-toggle="modal">
+          change password</a>
+        <a class="list-group-item list-group-item-action" href="#list-item-4">orders</a>
+      </div>
+      <div class="hstack d-none d-sm-flex gap-3 col-md-10 mx-auto mt-5">
+        <button
+          type="button"
+          class="btn border-0 btn-info text-uppercase text-light py-2"
+          style="background-color: #2C74B3"
+          (click)="customerLogout()"
+        >
+          Logout
+        </button>
+        <button
+          type="button"
+          class="btn border-0 text-uppercase text-light py-2"
+          style="background-color: #6a040f"
+        data-bs-target="#deleteAccountModal"
+        data-bs-toggle="modal"
+        >
+          delete account
+        </button>
+      </div>
+    </div>
+    <div class="col border rounded-2 overflow-auto" style="height: 450px; background-color: #F6FBF4;">
+      <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" class="scrollspy-example"
+        tabindex="0">
+         profile section
+
+
+       address section
+
+        <div id="list-item-3">
+
+        </div>
+
+        <div id="list-item-4"></div>
+      </div> -->
+      <!-- logout button stack -->
+      <!-- <div class="vstack d-sm-none gap-3 col-7 mx-auto my-3">
+        <button
+          type="button"
+          class="btn border-0 btn-info text-uppercase text-light py-2"
+          style="background-color: hsl(208, 61%, 44%)"
+          (click)="customerLogout()"
+        >
+          Logout
+        </button>
+        <button
+          type="button"
+          class="btn border-0 text-uppercase text-light py-2"
+          style="background-color: #6a040f"
+        data-bs-target="#deleteAccountModal"
+        data-bs-toggle="modal"
+        >
+          delete account
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div> -->
