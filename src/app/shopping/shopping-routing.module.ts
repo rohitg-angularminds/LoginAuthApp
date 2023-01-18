@@ -1,35 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustLoginComponent } from './cust-login/cust-login.component';
-import { CustRegistrationComponent } from './cust-registration/cust-registration.component';
-import { CustProfileComponent } from './cust-profile/cust-profile.component';
+import { CustProfileComponent } from './customer/cust-profile/cust-profile.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileGuard } from '../guards/seller.guard';
+import { CustomerLoginGuard, CustomerProfileGuard } from '../services/guards/customer.guard';
 
 const routes: Routes = [
 
   {
     path:'',
-    redirectTo:'home',
-    pathMatch:'full'
-  },
-  {
-    path:'home',
-    component:HomeComponent
-  },
-  {
-    path:'login',
-    component:CustLoginComponent
-  },
-  {
-    path:'registration',
-    component:CustRegistrationComponent
+    loadChildren: () => import('../shopping/home/home.module').then((m) => m.HomeModule),
   },
   {
     path:'profile',
-    component: CustProfileComponent,
-    canActivate: [ProfileGuard]
-  }
+    loadChildren: () => import('../shopping/customer/customer.module').then((m) => m.CustomerModule),
+  },
+  {
+    path:'auth',
+    loadChildren: () => import('../shopping/auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [CustomerLoginGuard]
+  },
 ];
 
 @NgModule({

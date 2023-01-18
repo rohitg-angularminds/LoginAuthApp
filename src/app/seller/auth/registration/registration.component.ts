@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
-import { passwordValidator } from '../../../validators/custom-validators';
+import { passwordValidator } from '../../../services/validators/custom-validators';
 import { HttpService } from 'src/app/services/http.service';
 
 
@@ -71,7 +71,6 @@ export class RegistrationComponent implements OnInit {
         })
         .then((token:any) => {
           this.registrationForm.value.captcha = token;
-          console.log(this.registrationForm.value)
           this.httpService.post(this.registrationForm.value,'/auth/register').subscribe({
             next: (users: any) => {
               this.router.navigateByUrl('/seller/auth/login');

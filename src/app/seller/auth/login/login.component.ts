@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.value.captcha = this.googleCaptcha;
     this.httpService.post(this.loginForm.value, `/auth/login`).subscribe({
       next: (data: any) => {
-        localStorage.setItem('token', data.token);
+        this.userService.set('sellerToken',data.token)
         this.router.navigateByUrl('/seller/my-profile');
       },
       error: (err) => {
@@ -90,7 +90,7 @@ getCaptcha(){
         .post({ token: data.idToken }, '/seller/auth/login/google')
         .subscribe({
           next: (res) => {
-            localStorage.setItem('token', res.token);
+            this.userService.set('sellerToken',res.token)
             this.router.navigateByUrl('/seller/my-profile');
           },
           error: (err) => console.log(err),

@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpService } from 'src/app/services/http.service';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-list-users',
@@ -14,7 +15,7 @@ import { HttpService } from 'src/app/services/http.service';
 })
 export class UsersComponent implements OnInit {
   searchValue: any;
-  constructor(private fb: FormBuilder, public httpService: HttpService) {}
+  constructor(private fb: FormBuilder, public httpService: HttpService, private userService: LocalstorageService) {}
 
   newuserForm!: FormGroup;
   usersList!: any;
@@ -33,7 +34,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUserList();
 
-    this.loggedInUser = JSON.parse(localStorage.getItem('userDetails') || '')['_id'];
+    this.loggedInUser = JSON.parse(this.userService.get('userDetails') || '')['_id'];
 
     this.newuserForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),

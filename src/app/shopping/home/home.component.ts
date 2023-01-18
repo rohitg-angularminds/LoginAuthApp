@@ -1,4 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private http: HttpService,
-    private userService: LocalstorageService
+    private userService: LocalstorageService,
+    private router : Router
   ) {}
 
   @Output() custLoggedStatus: Boolean = this.isLoggedin();
@@ -26,27 +28,34 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getShoppingProducts();
+
+
   }
 
   getShoppingProducts() {
     this.queryparams = `?limit=${this.limit}&page=${this.currentPage}&sortBy=${this.sortBy}`;
-    console.log(this.queryparams);
 
     this.http.get(`/shop/products${this.queryparams}`).subscribe({
       next: (res) => {
         this.shoppingProducts = res.results;
         this.pagesArray.length = res.totalPages;
         this.pagesArray.fill(0);
+
       },
     });
   }
 
+  setProductId(productId: any) {
+    this.userService.set('product_Id',productId);
+    this.router.navigate(['/product-details']);
+  }
+
   isLoggedin(): Boolean {
-    return this.userService.getUserToken() !== null ? true : false;
+    return this.userService.get('customerToken') !== null ? true : false;
   }
 
   custLogout() {
-    this.userService.deleteUserToken();
+    this.userService.delete('customerToken');
     localStorage.removeItem('username');
     this.custLoggedStatus = this.isLoggedin();
   }

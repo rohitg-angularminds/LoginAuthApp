@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit {
       if (ev instanceof NavigationEnd) {
         /* Your code goes here on every router change */
         this.getProductList()
-
       }
     });
   }
@@ -89,7 +88,6 @@ export class ProductsComponent implements OnInit {
 
     this.http.get(`/products${this.queryparams}`).subscribe({
       next: (data: any) => {
-        console.log(data);
         this.products = data.results;
         this.pagesArray.length = data.totalPages;
         this.pagesArray.fill(0);
@@ -98,10 +96,10 @@ export class ProductsComponent implements OnInit {
   }
 
   setProductId(productId: any) {
-    this.userService.setProductId(productId);
+    this.userService.set('product_Id',productId);
   }
 
-// pagination 
+// pagination
   changePage(e: any) {
     this.currentPage = parseInt(e.target.innerText);
     this.getProductList();

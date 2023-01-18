@@ -2,7 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
-import { passwordValidator } from '../../validators/custom-validators';
+import { passwordValidator } from '../../../services/validators/custom-validators';
 
 @Component({
   selector: 'app-cust-registration',

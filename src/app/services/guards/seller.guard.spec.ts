@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProfileGuard } from './seller.guard';
+import { SellerProfileGuard } from './seller.guard';
 
 describe('ProfileGuard', () => {
-  let guard: ProfileGuard;
+  let guard: SellerProfileGuard;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(ProfileGuard);
+    guard = TestBed.inject(SellerProfileGuard);
   });
 
   it('should be created', () => {

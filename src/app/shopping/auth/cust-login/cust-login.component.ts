@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { HttpService } from 'src/app/services/http.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
@@ -13,12 +14,13 @@ export class CustLoginComponent implements OnInit {
   constructor(
     private http: HttpService,
     private userService: LocalstorageService,
-    private router: Router
-    ) {}
+    private router: Router,
+    private toast: HotToastService
+  ) {}
 
   customerLoginForm!: FormGroup;
   @Output() errorMessage: any;
-  @Output() successMessage:any;
+  @Output() successMessage: any;
 
   ngOnInit(): void {
     this.customerLoginForm = new FormGroup({
@@ -30,15 +32,16 @@ export class CustLoginComponent implements OnInit {
   customerLogin() {
     this.http.post(this.customerLoginForm.value, '/shop/auth/login').subscribe({
       next: (response) => {
-        this.userService.setUserToken(response.token)
-        this.successMessage = "logged in successfully"
-        localStorage.setItem('customer',JSON.stringify(response.customer))
-        setTimeout(() => this.router.navigateByUrl('/home'),1000)
+        this.userService.set('customerToken', response.token);
+        this.toast.success('logged in successfully');
+        setTimeout(() => this.router.navigateByUrl('/home'), 1000);
       },
       error: (err) => {
-        this.errorMessage = err.error.message
-        setTimeout(() => { this.errorMessage=undefined;}, 2000)
-        this.router.navigateByUrl('/login')
+        this.errorMessage = err.error.message;
+        setTimeout(() => {
+          this.errorMessage = undefined;
+        }, 2000);
+        this.router.navigateByUrl('/auth/login');
       },
     });
   }

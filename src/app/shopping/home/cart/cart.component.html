@@ -1,0 +1,66 @@
+<app-cust-header></app-cust-header>
+
+<main class=" p-5" style="height:90vh">
+
+  <div class="container-md p-3">
+    <h4 class="text-uppercase text-center mb-5 title fw-bold " >cart</h4>
+
+  <div class="text-center" *ngIf="products.length === 0">
+    your cart is empty
+    <button class="btn btn-primary" routerLink="/">continue shopping</button>
+  </div>
+
+  <div *ngIf="products.length >0" class="table-responsive w-75 mx-auto">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="h5"></th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <th class="p-3" scope="row">
+            <div class="d-flex align-items-center">
+              <img src="{{product?.images[0].url}}" class="img-fluid rounded-0" style="width: 120px;" alt="product">
+              <div class="flex-column ms-4">
+                <p class="mb-2" style="color:#482307;;">{{product?.name}}</p>
+                <p class="mb-0 fw-light" style="color:#2a431c;">{{product?.description}}</p>
+              </div>
+            </div>
+          </th>
+          <td class="align-middle p-3">
+            <div class="d-flex flex-row">
+              <button class="btn btn-link px-2"
+                (click)="product?.qty == 0 ? removeItem(product._id) : stepDown(product._id)">
+                <i class="fas fa-minus text-dark"></i>
+              </button>
+              <input id="form1" min="1" name="quantity" [value]="product?.qty" type="number"
+                class="form-control form-control-sm" style="width: 50px;" />
+
+              <button class="btn btn-link px-2" (click)="stepUp(product._id)">
+                <i class="fas fa-plus  text-dark"></i>
+              </button>
+            </div>
+          </td>
+          <td class="align-middle">
+            <p class="mb-0" style="font-weight: 400;"> {{product?.totalPrice| currency : "INR" }}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="w-50 p-3 ms-auto text-end price-total">
+      <div class="d-flex justify-content-end">
+        <p class="me-5 text-uppercase fw-bold">total <span class="ms-3"> : </span></p>
+        <p class="me-3 fw-bold">{{totalAmount | currency : "INR"}}</p>
+      </div>
+      <div class="row">
+        <small>Dispatched within 2-3 working days for Domestic Orders. Shipping, taxes, and discount codes calculated at
+          checkout.</small>
+      </div>
+      <button class="btn btn-primary my-3 text-light rounded-0" style="background-color: #482307"> checkout</button>
+    </div>
+  </div>
+  </div>
+</main>

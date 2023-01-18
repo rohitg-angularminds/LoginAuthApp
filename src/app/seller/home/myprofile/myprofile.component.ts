@@ -22,7 +22,8 @@ export class MyprofileComponent implements OnInit {
   constructor(public service: LocalstorageService,
     public httpService: HttpService,
     public fb: FormBuilder,
-    public router: Router
+    public router: Router,
+    private userService: LocalstorageService
     ) {
 
   }
@@ -31,9 +32,6 @@ export class MyprofileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const token= localStorage.getItem('token');
-
-
 
    this.httpService.get('/auth/self').subscribe({
     next : (data:any) => {

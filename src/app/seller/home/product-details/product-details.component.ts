@@ -23,7 +23,7 @@ export class ProductDetailsComponent implements OnInit {
     private userService: LocalstorageService
   ) {}
 
-  productId: any = this.userService.getProductid();
+  productId: any = this.userService.get('product_Id');
 
   ngOnInit(): void {
 
@@ -59,7 +59,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   // function for update the product details
-  updateProduct(productId: string) {    
+  updateProduct(productId: string) {
     this.http
       .patch(`/products/${productId}`, this.updateProductForm.value)
       .subscribe({
@@ -82,8 +82,6 @@ export class ProductDetailsComponent implements OnInit {
 
 getCurrentSize(event : any){
     this.curProductSize = event.target.innerHTML
-    console.log(this.curProductSize);
-    
 }
 
 // function to update product list
@@ -104,29 +102,29 @@ getCurrentSize(event : any){
 // function to get selected images
 uploadImage(event : any){
     this.selectedImages = (event.target as HTMLInputElement).files
-    
+
     this.updateImageForm.patchValue({
       new_images : this.selectedImages,
     })
     this.updateImageForm.get('new_images')?.updateValueAndValidity()
-    
+
 }
 
   // funtion to update product image
   updateImages(productId : any){
 
     const imgArray = Object.values(this.selectedImages);
-    
+
     var formData  = new FormData()
     formData.append('delete', this.updateImageForm.value.delete)
-    imgArray.map((image:any) => {      
+    imgArray.map((image:any) => {
       formData.append('new_images',image)
     })
-     
+
     this.http.patch( `/products/images/${productId}`, formData).subscribe({
       next: (response) =>{
         console.log(response);
       }
-    })    
+    })
   }
 }

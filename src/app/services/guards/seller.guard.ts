@@ -8,7 +8,7 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 })
 
 
-export class ProfileGuard implements  CanActivate {
+export class SellerProfileGuard implements CanActivate {
 
   constructor(public router : Router, public userService : LocalstorageService) { }
 
@@ -20,13 +20,11 @@ export class ProfileGuard implements  CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-      if(this.userService.getUserToken()){
+      if(this.userService.get('sellerToken')){
      return true
-
       }
       this.router.navigateByUrl('/seller/auth/login');
       return false;
-
   }
 
 }
@@ -35,7 +33,7 @@ export class ProfileGuard implements  CanActivate {
   providedIn: 'root'
 })
 
-export class LoginGuard implements CanActivate {
+export class SellerLoginGuard implements CanActivate {
   constructor(private router: Router,public userService : LocalstorageService ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -46,7 +44,7 @@ export class LoginGuard implements CanActivate {
     | boolean
     | UrlTree {
 
-      if(!this.userService.getUserToken()){
+      if(!this.userService.get('sellerToken')){
         return true
       }
       this.router.navigateByUrl('/seller/my-profile')

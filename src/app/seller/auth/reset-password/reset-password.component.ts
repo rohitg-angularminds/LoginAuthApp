@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { passwordValidator } from 'src/app/validators/custom-validators';
+import { passwordValidator } from 'src/app/services/validators/custom-validators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 

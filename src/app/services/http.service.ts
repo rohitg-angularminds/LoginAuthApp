@@ -8,10 +8,7 @@ import { LocalstorageService } from './localstorage.service';
 })
 export class HttpService {
   baseURL = 'https://shop-api.ngminds.com';
-
-   
-   
-
+  
   constructor(
     private http: HttpClient,
     private userService: LocalstorageService
@@ -37,7 +34,7 @@ export class HttpService {
     return this.http.put(`${this.baseURL}${url}`, formData);
   }
 
-  
+
   getState(url: string): Observable<any> {
    let headers = new HttpHeaders();
     headers.append("X-CSCAPI-KEY", "API_KEY")
