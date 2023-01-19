@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private http: HttpService,
     private userService: LocalstorageService,
-    private router : Router
+    private router: Router
   ) {}
 
   @Output() custLoggedStatus: Boolean = this.isLoggedin();
@@ -28,8 +28,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getShoppingProducts();
-
-
   }
 
   getShoppingProducts() {
@@ -40,13 +38,12 @@ export class HomeComponent implements OnInit {
         this.shoppingProducts = res.results;
         this.pagesArray.length = res.totalPages;
         this.pagesArray.fill(0);
-
       },
     });
   }
 
   setProductId(productId: any) {
-    this.userService.set('product_Id',productId);
+    this.userService.set('product_Id', productId);
     this.router.navigate(['/product-details']);
   }
 

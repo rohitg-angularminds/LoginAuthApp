@@ -1,0 +1,69 @@
+<app-cust-header [custLoggedStatus]="custLoggedStatus"></app-cust-header>
+
+<main>
+  <div class="container-md p-3 border border-danger" style="height:90vh">
+    <div class="row">
+      <div class="col-md-7 border border-primary">
+        <div class="p-3">
+          <p class="fs-5"> Contact information</p>
+          <div class=" d-flex align-items-center justify-content-between p-3  border border-light-subtle ">
+            <div class="d-flex align-items-center ">
+              <i class="fa-solid fa-user me-4 fs-5"></i>
+              <div>
+                <p class="card-title h5 m-0" style="color:#2a431c;;">Rohit Gaikwad</p>
+                <small class="fw-light" style="color:#2a431c;">rohitgkwd98@gmail.com</small>
+              </div>
+            </div>
+            <div *ngIf="custLoggedStatus ; else login">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <ng-template #login>
+              <button class="btn btn-primary">Login</button>
+            </ng-template>
+
+          </div>
+          <div *ngIf="isOrderCreated" class=" d-flex align-items-center justify-content-between p-3  border border-light-subtle ">
+            <div class="d-flex align-items-center ">
+              <i class="fa-solid fa-address-book me-4 fs-5"></i>
+              <div>
+                <p class="mb-1 address-text">Ganganagar , fursungi pune, mah, <small class="address-text">
+                    412308</small></p>
+              </div>
+            </div>
+            <div *ngIf="custLoggedStatus ; else login">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <ng-template #login>
+              <button class="btn btn-primary">Login</button>
+            </ng-template>
+
+          </div>
+
+        </div>
+        <div #addressBlock  class="p-3" >
+          <p class="fs-5 "> Shipping address</p>
+          <app-address ></app-address>
+        </div>
+        <div class="p-3">
+          <p class="fs-5 "> Shipping method</p>
+          <div class="list-group border border-light-subtle rounded-0">
+            <li class="list-group-item list-group-item-action">
+              <input   (click)="getShippingMethod('free')" type="radio" name="shipping">
+              <span class="mx-3">standard free delivery above order of Rs.400*</span>
+            </li>
+            <li class="list-group-item list-group-item-action">
+              <input (click)="getShippingMethod('paid')" type="radio" name="shipping">
+              <span class="mx-3">fast delievery within 2 days - Rs.40</span>
+            </li>
+          </div>
+          <div class="text-end mt-3">
+            <button class="btn btn-primary" (click)="createOrder()">go to payment</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+
+      </div>
+    </div>
+  </div>
+</main>

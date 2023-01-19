@@ -1,145 +1,92 @@
-<p>product-details works!</p>
 <app-cust-header></app-cust-header>
 
+<main>
 
-<!--  product container  -->
-<div class="container border border-danger py-5">
-  <!-- path history -->
-  <nav
-    class="col-10 mx-auto mb-5"
-    style="--bs-breadcrumb-divider: '>'"
-    aria-label="breadcrumb"
-  >
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="/products" class="text-decoration-none text-dark">Products</a>
-      </li>
-      /
-      <li class="breadcrumb-item active" aria-current="page">
-        {{ productDetails?.name }}
-      </li>
-    </ol>
-  </nav>
+  <!--  product container  -->
+  <div class="container py-5">
+    <!-- path history -->
+    <nav class="col-10 mx-auto mb-5" style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="/products" class="text-decoration-none text-dark">Products</a>
+        </li>
+        /
+        <li class="breadcrumb-item active" aria-current="page">
+          {{ productDetails?.name }}
+        </li>
+      </ol>
+    </nav>
 
-  <!--  product card  -->
+    <!--  product card  -->
 
-  <div class="card my-3 col-10 mx-auto rounded-0">
-    <div class="row">
-      <div class="col-md-6 rounded-0 position-relative">
-        <!-- image corousel -->
-        <div id="carouselExampleAutoplaying" class="carousel slide">
-          <div class="carousel-inner">
-            <div
-              class="carousel-item"
-              [ngClass]="active ? 'active' : ''"
-              *ngFor="
+    <div class="card my-3 col-10 mx-auto rounded-0 border border-light-subtle" style="background-color:#fcfaf4;">
+      <div class="row">
+        <div class="col-md-6 rounded-0 position-relative">
+          <!-- image corousel -->
+          <div id="carouselExampleAutoplaying" class="carousel slide" style="height:500px">
+            <div class="carousel-inner">
+              <div class="carousel-item" [ngClass]="active ? 'active' : ''" *ngFor="
                 let image of productDetails?.images;
                 index as i;
                 first as active
-              "
-              style="object-fit: contain"
-            >
-              <a
-                class="m-3 btn btn-secondary text-center position-absolute rounded-3 opacity-75 end-0 bottom-0 text-light"
-                title="edit image"
-                id="edit-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#updateImagesmodal"
-              >
-                <i class="fa-solid fa-camera"> </i>
-              </a>
-              <img src="{{ image?.url }}" class="d-block w-100" alt="..." />
+              " style="object-fit: contain; height:500px">
+                <a class="m-3 btn btn-secondary text-center position-absolute rounded-3 opacity-75 end-0 bottom-0 text-light"
+                  title="edit image" id="edit-btn" data-bs-toggle="modal" data-bs-target="#updateImagesmodal">
+                  <i class="fa-solid fa-camera"> </i>
+                </a>
+                <img src="{{ image?.url }}" class="d-block img-fluid" style="width:100%; height: 100%;" alt="..." />
+              </div>
             </div>
+            <button class="carousel-control-prev" style="margin-top: 130px; height: 300px" type="button"
+              data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" style="margin-top: 130px; height: 300px" type="button"
+              data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-          <button
-            class="carousel-control-prev"
-            style="margin-top: 130px; height: 300px"
-            type="button"
-            data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            class="carousel-control-next"
-            style="margin-top: 130px; height: 300px"
-            type="button"
-            data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="card-body pe-5">
-          <p class="card-title text-uppercase fs-2 fw-semibold">
-            {{ productDetails?.name }}
-          </p>
-          <p class="card-text text-truncate">
-            {{ productDetails?.description }}
-          </p>
-          <div class="rating d-flex justify-content-between">
-            <div>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <small class="ms-2">(123 ratings)</small>
+        <div class="col-md-6 position-relative">
+          <div class="card-body pe-5">
+            <p class="card-title text-uppercase fs-2 fw-semibold">
+              {{ productDetails?.name }}
+            </p>
+            <p class="card-text text-truncate">
+              {{ productDetails?.description }}
+            </p>
+            <div class="rating d-flex justify-content-between">
+              <div>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <small class="ms-2">(123 ratings)</small>
+              </div>
             </div>
-          </div>
-          <!-- <div class="dropdown mt-3">
-            <span class="me-3">Size </span>
-            <button
-              class="btn btn-light border text-end h-25 w-25 px-3 p-2 dropdown-toggle rounded-0"
-              style="width: 250px"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{ curProductSize }}
-            </button>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              (click)="getCurrentSize($event)"
-            >
-              <li><a class="dropdown-item">250 gm</a></li>
-              <li><a class="dropdown-item">500 gm</a></li>
-              <li><a class="dropdown-item">1000 gm</a></li>
-            </ul>
-          </div> -->
-          <div class="my-3">
-            <small class="product-price"
-              ><span class="fw-semibold fs-5">{{
-                productDetails?.price | currency : "INR"
-              }}</span></small
-            >
-            <small class="d-block fw-light">MRP (incl of all taxes)</small>
-          </div>
-          <div class="vstack gap-3 col-md-7 mx-auto mt-3">
-            <button
-              type="button"
-              class="btn w-100 text-uppercase text-light py-2"
-              style="background-color: #2a431c"
-              (click)="addToCart()"
-              [routerLink]="'/cart'"
-            >
-              Add to cart
-            </button>
-            <button
-              type="button"
-              class="btn w-100 text-uppercase text-light py-2"
-              style="background-color: #6a040f"
-            >
-              buy now
-            </button>
+            <div class="my-3">
+              <small class="product-price"><span class="fw-semibold fs-5">{{
+                  productDetails?.price | currency : "INR"
+                  }}</span></small>
+              <small class="d-block fw-light">MRP (incl of all taxes)</small>
+            </div>
+            <div class="hstack gap-3 col-md-10  position-absolute bottom-0 my-5">
+              <button type="button" class="cart-btn btn w-100 rounded-0 text-uppercase text-light py-2"
+                style="background-color: #876445" (click)="addToCart()" [routerLink]="'/cart'">
+                Add to cart
+              </button>
+              <button type="button" class="buy-btn btn w-100 rounded-0 text-uppercase text-light py-2"
+                style="background-color: #2f4920">
+                buy now
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</main>

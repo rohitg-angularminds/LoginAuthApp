@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AnyFn } from '@ngrx/store/src/selector';
 import { Observable } from 'rxjs';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import {
   stepDownCounter,
   stepUpCounter,
   getTotalAmount,
-  removeItem,
+  updateQuantity,
 } from 'src/app/state/cart.actions';
 
 @Component({
@@ -24,6 +25,8 @@ export class CartComponent implements OnInit {
   quantity!: number;
   totalAmount!: number;
 
+  @Output() custLoggedStatus: Boolean = this.isLoggedin();
+
   ngOnInit(): void {
     this.getTotalAmount();
     this.store.select('cart').subscribe((data) => {
@@ -33,13 +36,16 @@ export class CartComponent implements OnInit {
     });
   }
 
+  getInput(productId: number, qty: string) {
+    this.store.dispatch(
+      updateQuantity({ productQty: +qty, productId: productId })
+    );
+    this.store.dispatch(getTotalAmount());
+  }
+
   stepDown(productId: number) {
     this.store.dispatch(stepDownCounter({ productId: productId }));
     this.store.dispatch(getTotalAmount());
-  }
-  removeItem(productId: number) {
-    console.log('hii');
-    this.store.dispatch(removeItem({ productId: productId }));
   }
 
   stepUp(productId: number) {
@@ -49,5 +55,9 @@ export class CartComponent implements OnInit {
 
   getTotalAmount() {
     this.store.dispatch(getTotalAmount());
+  }
+
+  isLoggedin(): Boolean {
+    return this.userService.get('customerToken') !== null ? true : false;
   }
 }

@@ -1,11 +1,19 @@
+main {
+  font-family: "work Sans", "sans-serif";
+  background-color: #f7f6f2;
+  color: #2a431c;
+  .title {
+    font-family: "montSerrat", "sans-serif";
+    color: #2a431c;
+  }
 
-main{
+  .checkout-btn:hover {
+    background-color: #482307 !important;
+  }
 
-    font-family: 'work Sans', 'sans-serif';
-    background-color: #f7f6f2;
-
-    .title{
-    font-family: 'montSerrat', 'sans-serif';
-    color:#2a431c;
-    }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
