@@ -44,7 +44,7 @@ export class CustomerComponent implements OnInit {
       confirmButtonText: 'continue shopping'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/');
       }
     })
   }

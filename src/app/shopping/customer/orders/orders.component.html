@@ -1,0 +1,41 @@
+<div class="card order border-light-subtle rounded-0 pt-0 p-3 overflow-scroll" style="height:80vh;">
+  <div class="sticky-top mt-2" style="background-color:#fcfaf4">
+    <ul class="nav  mb-4 border-bottom">
+      <li class="nav-item">
+        <a class="nav-link active opacity-100" aria-current="page" href="#">All</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">Confirmed</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pending</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Cancelled</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row border mx-auto border-light-subtle rounded-0 p-3 mb-2 "
+    style="width:99%"
+    *ngFor="let order of myOrders"
+    (click)="getOrderDetails(order?._id)">
+    <div class="col-5 ">
+      <p class="mb-1" style="color:#482307 ;">order id</p>
+      <a  style="color:#2a431c ;" >{{order?._id}}</a>
+    </div>
+    <div class="col-4 d-flex align-items-center">
+      <p class="mb-0 fw-600" style="color:#2a431c ;">{{order?.total | currency : "INR"}}</p>
+    </div>
+    <div class="d-flex align-items-center justify-content-between col ">
+      <a *ngIf="order?.paymentStatus === 'Pending'" routerLink="/checkout" class="px-2"  style="color: rgba(255, 0, 0, 0.699)">pay</a>
+      <span class="px-2 text-light" style="background-color: darkgreen; opacity: 0.75;" *ngIf="order?.paymentStatus === 'Paid'">paid</span>
+      <div class="ms-2 text-end">
+        <p class="mb-1" style="color:#482307 ;">Status</p>
+      <span  style="color:#2a431c ;">{{order?.status}}</span>
+      </div>
+    </div>
+    <!-- <a href="">pay</a> -->
+  </div>
+
+</div>
