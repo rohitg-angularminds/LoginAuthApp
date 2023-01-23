@@ -50,7 +50,7 @@ export class CustomerLoginGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/')
     return false;
   }
 }

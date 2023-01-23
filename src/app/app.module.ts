@@ -14,7 +14,7 @@ import { SellerInterceptor } from './services/interceptors/seller.interceptor';
 import { CustomerInterceptor } from './services/interceptors/customer.interceptor';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { StoreModule } from '@ngrx/store';
-import { cartReducer, totalAmountReducer } from './state/cart.reducer';
+import { cartReducer } from './state/cart.reducer';
 
 const google_clientid =
   '893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com';
@@ -27,7 +27,7 @@ const google_clientid =
     HttpClientModule,
     SocialLoginModule,
     HotToastModule.forRoot(),
-    StoreModule.forRoot({cart: cartReducer ,totalAmount : totalAmountReducer})
+    StoreModule.forRoot({cart: cartReducer})
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: CustomerInterceptor, multi: true },

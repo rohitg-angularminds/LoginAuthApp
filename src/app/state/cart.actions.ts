@@ -5,7 +5,6 @@ export const addToCart = createAction('[cart component] Addtocart', props<{produ
 export const stepUpCounter = createAction('[cart component] stepUpCounter',props<{productId : number}>())
 export const stepDownCounter = createAction('[cart component] stepDownCounter',props<{productId : number}>())
 export const getTotalAmount = createAction('[cart component] getTotalAmount')
-export const removeItem = createAction('[cart component] removeItem', props<{productId : number}>())
-
+export const updateQuantity = createAction('[cart component] updateQuantity',props<{productQty : number, productId :number}>())
 
 

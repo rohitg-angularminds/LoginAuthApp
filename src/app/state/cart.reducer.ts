@@ -2,9 +2,9 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addToCart,
   getTotalAmount,
-  removeItem,
   stepDownCounter,
   stepUpCounter,
+  updateQuantity,
 } from './cart.actions';
 import { product } from './product.model';
 
@@ -39,6 +39,7 @@ export const cartReducer = createReducer(
 
     const index = products.findIndex((item: any) => item._id === id.productId);
     products[index].qty++;
+    console.log(products[index].qty);
     products[index].totalPrice = products[index].qty * products[index].price;
 
     state = {
@@ -77,17 +78,27 @@ export const cartReducer = createReducer(
 
     let amount = 0;
     products.map((item: any) => (amount += item.totalPrice));
-    return {
+    state = {
       ...state,
+      products: products,
       totalAmount: amount,
     };
+    localStorage.setItem('cart', JSON.stringify(state));
+
+    return state;
   }),
-  on(removeItem, (state, id) => {
+  on(updateQuantity, (state, Qty) => {
     let products =
       JSON.parse(localStorage.getItem('cart') || '[]')?.products ||
       state.products;
 
-    products = products.filter((item: any) => item._id !== id.productId);
+    const index = products.findIndex((item: any) => item._id === Qty.productId);
+    console.log(Qty);
+
+    products[index].qty = Qty.productQty;
+    products[index].totalPrice = products[index].qty * products[index].price;
+
+    console.log(products[index].totalPrice);
 
     state = {
       ...state,
@@ -95,8 +106,8 @@ export const cartReducer = createReducer(
     };
 
     localStorage.setItem('cart', JSON.stringify(state));
+
     return state;
+    // const index = products.findIndex((item: any) => item._id === id.productId);
   })
 );
-
-export const totalAmountReducer = createReducer(initialState);

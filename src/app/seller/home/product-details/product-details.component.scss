@@ -5,10 +5,10 @@
   }
 
 
-body{
+.container{
     font-family: 'Work Sans', 'sans-serif';
   }
-  
+
 
   .card-body{
     color:#2a431c;
@@ -17,7 +17,7 @@ body{
 button{
     border:none;
     border-radius: 0;
-}  
+}
 
 #edit-btn:hover::after{
     content: "edit";

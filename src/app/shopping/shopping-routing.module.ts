@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CustProfileComponent } from './customer/cust-profile/cust-profile.component';
-import { HomeComponent } from './home/home.component';
 import { CustomerLoginGuard, CustomerProfileGuard } from '../services/guards/customer.guard';
 
 const routes: Routes = [

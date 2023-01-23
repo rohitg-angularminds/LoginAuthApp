@@ -20,7 +20,7 @@ export class CustomerInterceptor implements HttpInterceptor {
 
   handleAuthError(err: any): Observable<any> {
     if (err.status === 401) {
-      if (err.url.includes('/shop/auth') || err.url.includes('/customers')) {
+      if (err.url.includes('/shop') || err.url.includes('/customers')) {
         this.userService.delete('customerToken');
         this.router.navigateByUrl('/auth/login');
       } else {
@@ -35,10 +35,7 @@ export class CustomerInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (
-      request.url.includes('/shop/auth') ||
-      request.url.includes('/customers')
-    ) {
+    if (request.url.includes('/shop') || request.url.includes('/customers')) {
       this.token = this.userService.get('customerToken');
     } else {
       this.token = this.userService.get('sellerToken');
