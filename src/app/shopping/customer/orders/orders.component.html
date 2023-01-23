@@ -1,41 +1,111 @@
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f1dfb8">
+        <h1 class="modal-title active fs-5 text-uppercase" id="exampleModalLabel">order details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #2a431c;">
+        <div>
+          <p class="fs-5 mb-2">Delievery address </p>
+          <span>{{orderDetails?.address.street}} , {{orderDetails?.address.addressLine2}}</span>
+          <span>{{orderDetails?.address.city}} , {{orderDetails?.address.state}} ,{{orderDetails?.address.pin}} </span>
+        </div>
+        <div>
+          <table class="table">
+            <thead>
+              <tr style="color: #2a431c;">
+                <th></th>
+                <th></th>
+                <th>Qty</th>
+                <th>price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items ; index as i" style="color: #2a431c;">
+                <th scopactivee="row">{{i+1}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.qty}}</td>
+                <td>{{item.price | currency : "INR"}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- payment -->
+          <div class="collapse" id="collapseExample">
+            <app-payment style="background-color: filte;"></app-payment>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer  d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <span class="fs-5 me-3 fw-bold" style="color: #2a431c;">Total : </span>
+          <span class="fs-5 fw-500" style="color: #2a431c;">{{orderDetails?.total | currency : "INR"}}</span>
+        </div>
+        <div>
+          <button *ngIf="orderDetails?.paymentStatus === 'Pending' && orderDetails?.paymentStatus !== 'Cancelled'"
+            type="button" class="btn pay-btn me-3 opacity-75 text-light" style="background-color: #876445;"
+            data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+            aria-controls="collapseExample">pay</button>
+          <button [class.disabled]="orderDetails?.status === 'Cancelled'" type="button" class="btn btn-outline-danger"
+            (click)="cancelOrder(orderDetails?._id)" data-bs-dismiss="modal">cancel order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card order border-light-subtle rounded-0 pt-0 p-3 overflow-scroll" style="height:80vh;">
+
+  <!-- navigation links -->
   <div class="sticky-top mt-2" style="background-color:#fcfaf4">
     <ul class="nav  mb-4 border-bottom">
       <li class="nav-item">
-        <a class="nav-link active opacity-100" aria-current="page" href="#">All</a>
+        <a class="nav-link active opacity-100" aria-current="page" href="javascript:null"
+          (click)="getOrderHistory()">All</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " href="#">Confirmed</a>
+        <a class="nav-link " [class.active]="active" href="javascript:null"
+          (click)="getFilteredHistory('Confirmed')">Confirmed</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pending</a>
+        <a class="nav-link" href="javascript:null" (click)="getFilteredHistory('Pending')">Pending</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link">Cancelled</a>
+        <a class="nav-link" href="javascript:null" (click)="getFilteredHistory('Cancelled')">Cancelled</a>
       </li>
     </ul>
   </div>
 
-  <div class="row border mx-auto border-light-subtle rounded-0 p-3 mb-2 "
-    style="width:99%"
-    *ngFor="let order of myOrders"
-    (click)="getOrderDetails(order?._id)">
+  <!-- order list -->
+
+  <div class="row border mx-auto border-light-subtle rounded-0 p-3 mb-2 " style="width:99%"
+    *ngFor="let order of myOrders | paginate:{ itemsPerPage: limit, currentPage : page, totalItems: totalResults}"
+    (click)="getOrderDetails(order?._id)" data-bs-toggle="modal" data-bs-target="#exampleModal">
     <div class="col-5 ">
       <p class="mb-1" style="color:#482307 ;">order id</p>
-      <a  style="color:#2a431c ;" >{{order?._id}}</a>
+      <a style="color:#2a431c ;">{{order?._id}}</a>
     </div>
     <div class="col-4 d-flex align-items-center">
       <p class="mb-0 fw-600" style="color:#2a431c ;">{{order?.total | currency : "INR"}}</p>
     </div>
-    <div class="d-flex align-items-center justify-content-between col ">
-      <a *ngIf="order?.paymentStatus === 'Pending'" routerLink="/checkout" class="px-2"  style="color: rgba(255, 0, 0, 0.699)">pay</a>
-      <span class="px-2 text-light" style="background-color: darkgreen; opacity: 0.75;" *ngIf="order?.paymentStatus === 'Paid'">paid</span>
+    <div class="d-flex align-items-center justify-content-end col ">
       <div class="ms-2 text-end">
         <p class="mb-1" style="color:#482307 ;">Status</p>
-      <span  style="color:#2a431c ;">{{order?.status}}</span>
+        <span style="color:#2a431c ;">{{order?.status}}</span>
       </div>
     </div>
     <!-- <a href="">pay</a> -->
   </div>
 
+  <!-- pagination -->
+  <div class="mt-2 d-flex justify-content-center align-items-start">
+    <select class="mt-1" name="limit" (change)="onTableSizeChange($event)">
+      <option value="6">6</option>
+      <option value="10">10</option>
+      <option value="12">12</option>
+    </select>
+    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onPageChange($event)">
+    </pagination-controls>
+  </div>
 </div>

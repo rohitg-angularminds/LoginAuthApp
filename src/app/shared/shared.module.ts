@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ErrorToastComponent } from './error-toast/error-toast.component';
 import { SuccessToastComponent } from './success-toast/success-toast.component';
 import { CustHeaderComponent } from './cust-header/cust-header.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -16,7 +17,8 @@ import { CustHeaderComponent } from './cust-header/cust-header.component';
     FooterComponent,
     ErrorToastComponent,
     SuccessToastComponent,
-    CustHeaderComponent
+    CustHeaderComponent,
+    PaymentComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { CustHeaderComponent } from './cust-header/cust-header.component';
     SuccessToastComponent,
     ReactiveFormsModule,
     FormsModule,
+    PaymentComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,79 @@
+
+  <form [formGroup]="paymentForm" (ngSubmit)="placeOrder(); paymentForm.reset()" action="">
+    <!-- <p class="fw-bold mb-2">Saved cards:</p>
+    <div class="d-flex flex-row pb-3">
+      <div class="d-flex align-items-center pe-2">
+        <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value=""
+          aria-label="..." checked />
+      </div>
+      <div class="rounded border d-flex justify-content-between w-100 p-3 align-items-center">
+        <p class="mb-0">
+          <i class="fab fa-cc-visa fa-lg text-primary pe-2 me-3"></i>
+          <span>************3456</span>
+        </p>
+        <div class="w-25">
+          <input type="password" id="formControlLgcvv" class="form-control " placeholder="CVV" />
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <p class="fw-bold mb-4">Add new card:</p> -->
+
+    <div class="card p-4 rounded-3 mb-4">
+      <div class="form-outline mb-4">
+        <label class="form-label" for="formControlLgcvv">Cardholder's Name</label>
+        <input formControlName="nameOnCard" type="text" id="formControlLgXsd" class="form-control "
+          placeholder="Cardholder's Name" value="" />
+        <small
+          *ngIf="paymentForm.controls['nameOnCard']?.touched && paymentForm.controls['nameOnCard'].errors?.['required']"
+          class="text-danger">
+          *name is required
+        </small>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-7">
+          <div class="form-outline">
+            <label class="form-label" for="formControlLgcvv">Card Number</label>
+            <input formControlName="cardNumber" type="text" class="form-control"
+              placeholder="0000 0000 0000 0000 " />
+            <small *ngIf=" paymentForm.controls['cardNumber'].errors?.['pattern']" class="text-danger">
+              *enter valid card number
+            </small>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-outline">
+            <label class="form-label" for="formControlLgcvv">Expiry</label>
+            <input formControlName="expiry" type="text" class="form-control " placeholder="MM/YYYY" />
+            <small
+              *ngIf="paymentForm.controls['expiry']?.dirty && paymentForm.controls['expiry'].errors?.['pattern']"
+              class="text-danger">
+              *enter valid expiry date
+            </small>
+          </div>
+        </div>
+        <div class="col-2 ">
+          <div class="form-outline">
+            <label class="form-label" for="formControlLgcvv">cvv</label>
+            <input formControlName="cvv" type="password" class="form-control " placeholder="000" />
+            <small
+              *ngIf="paymentForm.controls['cvv']?.dirty && paymentForm.controls['cvv'].errors?.['pattern']"
+              class="text-danger">
+              *enter valid cvv
+            </small>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="text-end">
+        <button type="button" class="btn btn-success btn-block">Add card</button>
+      </div> -->
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <a class="text-decoration-none ms-3" routerLink="/cart" style="color: #876445;"><i
+          class="fa-solid fa-chevron-left ms-2"></i> cart</a>
+      <button class=" btn btn-success " type="submit" style="background-color: #876445"
+        [disabled]="paymentForm.invalid">Proceed to pay</button>
+    </div>
+  </form>
+

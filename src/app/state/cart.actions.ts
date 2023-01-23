@@ -6,5 +6,5 @@ export const stepUpCounter = createAction('[cart component] stepUpCounter',props
 export const stepDownCounter = createAction('[cart component] stepDownCounter',props<{productId : number}>())
 export const getTotalAmount = createAction('[cart component] getTotalAmount')
 export const updateQuantity = createAction('[cart component] updateQuantity',props<{productQty : number, productId :number}>())
-
+export const buyNow = createAction('[cart component] buyNow', props<{product : product}>())
 

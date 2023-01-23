@@ -3,10 +3,17 @@
     display: none;
   }
 
-  body{
+  .card{
+    transition: box-shadow .3s;
     font-family: 'work Sans', 'sans-serif';
+    cursor:pointer;
+    background-color: #fcfaf4;
+
   }
 
+.card:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
 
   .text-truncate {
     white-space:normal;

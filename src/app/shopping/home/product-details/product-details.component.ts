@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { HttpService } from 'src/app/services/http.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
-import {addToCart, getTotalAmount} from '../../../state/cart.actions'
+import {addToCart, buyNow, getTotalAmount} from '../../../state/cart.actions'
 
 @Component({
   selector: 'app-product-details',
@@ -13,6 +14,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private http: HttpService,
     private userService: LocalstorageService,
+    private router:Router,
     private store: Store<{cart : any}>
   ) {}
 
@@ -41,5 +43,11 @@ export class ProductDetailsComponent implements OnInit {
     this.store.dispatch(getTotalAmount());
   }
 
+  buyNow(){
+    this.productDetails.qty = 1 ;
+    this.productDetails.totalPrice = this.productDetails.price
+    this.router.navigate(['/checkout']);
+    this.store.dispatch(buyNow(this.productDetails))
+  }
 
 }

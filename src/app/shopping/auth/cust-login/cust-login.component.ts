@@ -17,7 +17,16 @@ export class CustLoginComponent implements OnInit {
     private userService: LocalstorageService,
     private router: Router,
     private toast: HotToastService
-  ) {}
+  ) {
+    router.events
+      .pipe(
+        filter((evt: any) => evt instanceof RoutesRecognized),
+        pairwise()
+      )
+      .subscribe((events: RoutesRecognized[]) => {
+         this.userService.set('prevUrl',events[0].urlAfterRedirects) ;
+      });
+  }
 
   previousURL: any;
   customerLoginForm!: FormGroup;
@@ -25,19 +34,6 @@ export class CustLoginComponent implements OnInit {
   @Output() successMessage: any;
 
   ngOnInit(): void {
-    
-    // this.router.events
-    //   .pipe(
-    //     filter((evt: any) => evt instanceof RoutesRecognized),
-    //     pairwise()
-    //   )
-    //   .subscribe((events: RoutesRecognized[]) => {
-    //     console.log('prev', typeof events[0].urlAfterRedirects);
-    //     this.previousURL = events[0].urlAfterRedirects;
-    //     console.log(this.previousURL);
-    //     console.log('current url', events[1].urlAfterRedirects);
-    //   });
-
     this.customerLoginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -49,14 +45,11 @@ export class CustLoginComponent implements OnInit {
       next: (response) => {
         this.userService.set('customerToken', response.token);
         this.toast.success('logged in successfully');
-        console.log(this.previousURL);
-        history.back()
 
-        // setTimeout(() => {
-        //   this.previousURL === '/checkout'
-        //     ? this.router.navigateByUrl('/checkout')
-        //     : this.router.navigateByUrl('/');
-        // }, 5000);
+          this.userService.get('prevUrl') === '/checkout'
+            ? this.router.navigateByUrl('/checkout')
+            : (this.router.navigateByUrl('/'), this.userService.delete('prevUrl'));
+
       },
       error: (err) => {
         this.errorMessage = err.error.message;

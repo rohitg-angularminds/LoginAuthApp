@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
+import { Store } from '@ngrx/store';
 import { HttpService } from 'src/app/services/http.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
@@ -15,7 +16,8 @@ export class CheckoutComponent implements OnInit {
     private userService: LocalstorageService,
     private http: HttpService,
     private toast: HotToastService,
-    private router: Router
+    private router: Router,
+    private store: Store<{ buy: any; totalAmount: any }>
   ) {}
 
   customerAddress!: any;
@@ -24,10 +26,11 @@ export class CheckoutComponent implements OnInit {
   selectedAddress: any;
   deliveryFee: number = 0;
   subTotal: any = JSON.parse(this.userService.get('cart') || '[]')?.totalAmount;
-  total: number = this.deliveryFee + this.subTotal
+  total: number = this.deliveryFee + this.subTotal;
   items: any = [];
-  orderId: any;
+  orderId: any =this.userService.get('orderId');
   products: any;
+
 
   paymentForm!: FormGroup;
   @Output() custLoggedStatus: Boolean = this.isLoggedin();
@@ -39,6 +42,13 @@ export class CheckoutComponent implements OnInit {
 
     this.products =
       JSON.parse(this.userService?.get('cart') || '[]')?.products || [];
+
+    // this.store.select('buy').subscribe({
+    //   next: (data) => {
+    //     this.products = data.products;
+    //     this.subTotal = data.totalAmount;
+    //   },
+    // });
 
     // payment form
     this.paymentForm = new FormGroup({
@@ -77,7 +87,7 @@ export class CheckoutComponent implements OnInit {
 
   getShippingMethod(method: string) {
     this.deliveryFee = method == 'free' ? 0 : 40;
-    this.total = this.deliveryFee + this.subTotal
+    this.total = this.deliveryFee + this.subTotal;
   }
 
   createOrder() {
@@ -121,8 +131,11 @@ export class CheckoutComponent implements OnInit {
     this.http
       .put(`/shop/orders/confirm/${this.orderId}`, this.paymentForm.value)
       .subscribe({
-        next: (res) => {this.toast.success('order placed successfully');
-      this.router.navigate(['/profile'])},
+        next: (res) => {
+          this.toast.success('order placed successfully');
+          this.router.navigate(['/profile']);
+          this.userService.delete('orderId')
+        },
         error: (err) => {
           console.log(err);
         },

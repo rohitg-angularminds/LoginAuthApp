@@ -78,11 +78,12 @@
               </li>
               <li class="list-group-item list-group-item-action" style="background-color:#fcfaf4">
                 <input (click)="getShippingMethod('paid')" id="radio_1" type="radio" name="shipping">
-                <span class="mx-3"style="color: #2a431c;" for="radio_1">fast delievery within 2 days - Rs.40</span>
+                <span class="mx-3" style="color: #2a431c;" for="radio_1">fast delievery within 2 days - Rs.40</span>
               </li>
             </div>
             <div class="d-flex align-items-center justify-content-between mt-5">
-              <a class="text-decoration-none ms-3" routerLink="/cart" style="color: #876445;"><i class="fa-solid fa-chevron-left ms-2"></i> cart</a>
+              <a class="text-decoration-none ms-3" routerLink="/cart" style="color: #876445;"><i
+                  class="fa-solid fa-chevron-left ms-2"></i> cart</a>
 
               <button class="btn btn-primary rounded-0 border-0" style="background-color: #876445"
                 (click)="createOrder()">go to payment</button>
@@ -96,103 +97,28 @@
 
           <p class="fs-5 title">Payment Details</p>
 
-          <div class="card p-3 rounded-0  border border-light-subtle" style="background-color:#fcfaf4">
-            <form [formGroup]="paymentForm" (ngSubmit)="placeOrder(); paymentForm.reset()" action="">
-              <!-- <p class="fw-bold mb-2">Saved cards:</p>
-              <div class="d-flex flex-row pb-3">
-                <div class="d-flex align-items-center pe-2">
-                  <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1" value=""
-                    aria-label="..." checked />
-                </div>
-                <div class="rounded border d-flex justify-content-between w-100 p-3 align-items-center">
-                  <p class="mb-0">
-                    <i class="fab fa-cc-visa fa-lg text-primary pe-2 me-3"></i>
-                    <span>************3456</span>
-                  </p>
-                  <div class="w-25">
-                    <input type="password" id="formControlLgcvv" class="form-control " placeholder="CVV" />
-                  </div>
-                </div>
-              </div> -->
-
-              <!-- <p class="fw-bold mb-4">Add new card:</p> -->
-
-              <div class="card col-8 p-4 rounded-3 mb-4" >
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="formControlLgcvv">Cardholder's Name</label>
-                  <input formControlName="nameOnCard" type="text" id="formControlLgXsd" class="form-control "
-                    placeholder="Cardholder's Name" value="" />
-                  <small
-                    *ngIf="paymentForm.controls['nameOnCard']?.touched && paymentForm.controls['nameOnCard'].errors?.['required']"
-                    class="text-danger">
-                    *name is required
-                  </small>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-7">
-                    <div class="form-outline">
-                      <label class="form-label" for="formControlLgcvv">Card Number</label>
-                      <input formControlName="cardNumber" type="text" class="form-control"
-                        placeholder="0000 0000 0000 0000 " />
-                      <small *ngIf=" paymentForm.controls['cardNumber'].errors?.['pattern']" class="text-danger">
-                        *enter valid card number
-                      </small>
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-outline">
-                      <label class="form-label" for="formControlLgcvv">Expiry</label>
-                      <input formControlName="expiry" type="text" class="form-control " placeholder="MM/YYYY" />
-                      <small
-                        *ngIf="paymentForm.controls['expiry']?.dirty && paymentForm.controls['expiry'].errors?.['pattern']"
-                        class="text-danger">
-                        *enter valid expiry date
-                      </small>
-                    </div>
-                  </div>
-                  <div class="col-2 ">
-                    <div class="form-outline">
-                      <label class="form-label" for="formControlLgcvv">cvv</label>
-                      <input formControlName="cvv" type="password" class="form-control " placeholder="000" />
-                      <small
-                        *ngIf="paymentForm.controls['cvv']?.dirty && paymentForm.controls['cvv'].errors?.['pattern']"
-                        class="text-danger">
-                        *enter valid cvv
-                      </small>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="text-end">
-                  <button type="button" class="btn btn-success btn-block">Add card</button>
-                </div> -->
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
-                <a class="text-decoration-none ms-3" routerLink="/cart" style="color: #876445;"><i class="fa-solid fa-chevron-left ms-2"></i> cart</a>
-                <button class=" btn btn-success " type="submit" style="background-color: #876445"
-                  [disabled]="paymentForm.invalid">Proceed to pay</button>
-              </div>
-            </form>
-
+          <div class="card p-5 rounded-0  border border-light-subtle" style="background-color:#fcfaf4">
+            <app-payment></app-payment>
           </div>
         </div>
       </div>
 
+<!-- cart details -->
+
       <div class="col-md-5 px-md-5 p-md-3 border-start ">
         <div class="p-3 overflow-scroll" style="max-height:362px">
-          <ul class="list-group list-group-flush " >
-            <li *ngFor="let product of products"
-            style="background-color:inherit"
+          <ul class="list-group list-group-flush ">
+            <li *ngFor="let product of products" style="background-color:inherit"
               class="list-group-item d-flex align-items-center justify-content-between ">
-              <div class="d-flex gap-3 align-items-center" style="color: #2a431c;" >
+              <div class="d-flex gap-3 align-items-center" style="color: #2a431c;">
                 <img src="{{product?.images[0].url}}" class="img-fluid rounded-3" style="width: 80px;height: 80px;"
                   alt="product">
-                <div >
+                <div>
                   <p class="mb-0" style="color:#482307">{{product?.name}} </p>
                   <small>Qty : {{product?.qty}}</small>
                 </div>
               </div>
-              <p style="color: #2a431c;">  {{product?.totalPrice | currency : "INR"}} </p>
+              <p style="color: #2a431c;"> {{product?.totalPrice | currency : "INR"}} </p>
             </li>
           </ul>
         </div>
@@ -206,12 +132,14 @@
             <p style="color:#482307">subtotal :</p> <small style="color:#2a431c">{{subTotal | currency: "INR"}}</small>
           </div>
           <div class="d-flex justify-content-between">
-            <p style="color:#482307">delievery fee :</p> <small style="color:#2a431c">{{deliveryFee | currency: "INR"}}</small>
+            <p style="color:#482307">delievery fee :</p> <small style="color:#2a431c">{{deliveryFee | currency:
+              "INR"}}</small>
           </div>
         </div>
         <hr>
         <div class="px-3 d-flex justify-content-between">
-          <h5 class="text-capitalize" style="color:#482307">total :</h5> <span class="fw-bold" style="color:#2a431c">{{total| currency: "INR"}}</span>
+          <h5 class="text-capitalize" style="color:#482307">total :</h5> <span class="fw-bold"
+            style="color:#2a431c">{{total| currency: "INR"}}</span>
         </div>
       </div>
     </div>

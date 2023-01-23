@@ -7,3 +7,16 @@ a{
   background-color:#fcfaf4
 
 }
+
+.card a:hover {
+    background-color: #faf3e1 !important;
+    cursor: pointer
+}
+
+.card a:active {
+  cursor: pointer
+}
+
+.list-group-item-action{
+  background-color: #faf3e1 !important;
+}

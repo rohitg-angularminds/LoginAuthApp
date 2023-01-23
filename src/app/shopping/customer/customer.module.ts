@@ -10,7 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrdersComponent } from './orders/orders.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,7 @@ import { OrdersComponent } from './orders/orders.component';
     CustomerRoutingModule,
     RouterModule,
     SharedModule,
+    NgxPaginationModule,
     ReactiveFormsModule
   ],
   exports: [AddressComponent, ]

@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addToCart,
+  buyNow,
   getTotalAmount,
   stepDownCounter,
   stepUpCounter,
@@ -27,11 +28,9 @@ export const cartReducer = createReducer(
       ...state,
       products: products,
     };
-
     localStorage.setItem('cart', JSON.stringify(state));
     return state;
   }),
-
   on(stepUpCounter, (state, id: any) => {
     let products =
       JSON.parse(localStorage.getItem('cart') || '[]')?.products ||
@@ -49,7 +48,6 @@ export const cartReducer = createReducer(
     localStorage.setItem('cart', JSON.stringify(state));
     return state;
   }),
-
   on(stepDownCounter, (state, id) => {
     let products =
       JSON.parse(localStorage.getItem('cart') || '[]')?.products ||
@@ -111,3 +109,17 @@ export const cartReducer = createReducer(
     // const index = products.findIndex((item: any) => item._id === id.productId);
   })
 );
+
+export const buyReducer = createReducer(
+  initialState,
+  on(buyNow, (state,product: any) => {
+    console.log(product);
+
+    return {
+      ...state,
+      products : [product],
+      totalAmount : product.price
+    }
+
+  }),
+)
