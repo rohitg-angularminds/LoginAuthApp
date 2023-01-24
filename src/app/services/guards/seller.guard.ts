@@ -47,7 +47,7 @@ export class SellerLoginGuard implements CanActivate {
       if(!this.userService.get('sellerToken')){
         return true
       }
-      this.router.navigateByUrl('/seller/my-profile')
+      this.router.navigateByUrl('/seller/home/my-profile')
       return false;
   }
 }

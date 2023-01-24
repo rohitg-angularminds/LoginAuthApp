@@ -1,0 +1,32 @@
+
+  <div class="card border border-light-subtle rounded-0 " style="height:80vh;">
+  <div class="mx-auto my-3 position-relative" style="width: 180px; height: 180px; object-fit: contain">
+    <img src="{{ customerDetails?.['picture'] }}" class="rounded-circle border-5"
+      style="width: 100%; height: 100%; border: 5px solid #dea373;" alt="" />
+  </div>
+
+  <div class="row p-md-5 p-3">
+    <p class="title text-uppercase fw-semibold fs-5">
+      Personal Details
+    </p>
+    <div class="col-sm">
+      <p class="field fw-light border-bottom w-50">Name</p>
+      <p class="field-value">{{ customerDetails?.['name'] }}</p>
+    </div>
+    <div class="col-sm">
+      <p class="field fw-light border-bottom w-50">Email</p>
+      <p class="field-value">{{ customerDetails?.['email'] }}</p>
+    </div>
+    <p class="title mt-3 text-uppercase fw-semibold fs-5">Contact Details</p>
+    <div class="row">
+      <div class="col-sm">
+        <p class="field fw-light border-bottom w-50 ">Mobile</p>
+        <p class="field-value">+91 9923929882</p>
+      </div>
+      <div class="col-sm">
+        <p class="field fw-light border-bottom w-50">Phone</p>
+        <p class="field-value">+91 9834395623</p>
+      </div>
+    </div>
+  </div>
+</div>

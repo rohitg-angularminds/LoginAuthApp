@@ -1,0 +1,146 @@
+
+<main>
+  <div class="container-md py-3 " style="min-height:90vh">
+    <div class="row">
+      <div class="col-md-7 px-md-5 p-md-3 border-end ">
+        <div class="p-3">
+          <!-- login info -->
+          <div class=" d-flex align-items-center justify-content-between p-3  border border-light-subtle "
+            style="background-color:#fcfaf4">
+            <div class="d-flex align-items-center ">
+              <i class="fa-solid fa-user me-4 fs-5"></i>
+              <div>
+                <p class="card-title h5 m-0" style="color:#482307;"> {{customerName}}</p>
+                <small class="fw-light" style="color:#2a431c;">{{customerEmail}}</small>
+              </div>
+            </div>
+            <div *ngIf="custLoggedStatus ; else login">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <ng-template #login>
+              <a class="" routerLink="/auth/login">Login</a>
+            </ng-template>
+
+          </div>
+          <!-- ship to -->
+          <div *ngIf="orderId" style="background-color:#fcfaf4"
+            class=" d-flex align-items-center justify-content-between p-3  border border-light-subtle ">
+            <div class="d-flex align-items-center ">
+              <i class="fa-solid fa-address-book me-4 fs-5"></i>
+              <div>
+                <p class="mb-1 address-text">ship to : <small class="address-text">
+                    {{selectedAddress?.street}}, {{selectedAddress?.addressLine2}}, {{selectedAddress?.city}},
+                    {{selectedAddress?.state}}, {{selectedAddress?.pin}}</small></p>
+              </div>
+            </div>
+            <a (click)="changeAddress()"> change</a>
+
+          </div>
+
+        </div>
+
+        <!-- address section -->
+
+        <div class="address-sec" [class.disabled]="custLoggedStatus === false" *ngIf="!orderId">
+          <!-- select address -->
+          <div class="p-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="fs-5 title"> Shipping address</p>
+              <a href="" class="text-decoration-none" routerLink="/profile/address">manage address</a>
+            </div>
+            <div class="list-group rounded-0 mt-3 border-0">
+              <li *ngFor="let address of customerAddress; index as i"
+                class="list-group-item d-flex list-group-item-action" aria-current="true"
+                style="background-color:#fcfaf4">
+                <input (click)="getSelectedAdd(address)" type="radio" name="address">
+                <div class="ms-3">
+                  <div class="d-flex w-100 justify-content-between">
+                    <p class="mb-1" style="color:#482307">{{customerName}} <small class=" p-1 rounded-1 fw-light  ms-2 "
+                        style="background-color:#f0eddb">Home</small> </p>
+                  </div>
+                  <p class="mb-1 address-text" style="color: #2a431c">{{address.street}}, {{address.addressLine2}},
+                    <small class="address-text">{{address.city}}, {{address.state}},
+                      {{address.pin}}</small>
+                  </p>
+
+                </div>
+              </li>
+            </div>
+          </div>
+          <!-- select delivery method -->
+          <div class="p-3">
+            <p class="fs-5 title"> Shipping method</p>
+            <div class="list-group border-0 rounded-0">
+              <li class="list-group-item list-group-item-action" style="background-color:#fcfaf4">
+                <input (click)="getShippingMethod('free')" type="radio" name="shipping">
+                <span class="mx-3" style="color: #2a431c;">standard free delivery above order of Rs.400*</span>
+              </li>
+              <li class="list-group-item list-group-item-action" style="background-color:#fcfaf4">
+                <input (click)="getShippingMethod('paid')" id="radio_1" type="radio" name="shipping">
+                <span class="mx-3" style="color: #2a431c;" for="radio_1">fast delievery within 2 days - Rs.40</span>
+              </li>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mt-3">
+              <a class="text-decoration-none ms-3" routerLink="/cart" style="color: #876445;"><i
+                  class="fa-solid fa-chevron-left ms-2"></i> cart</a>
+
+              <button class="btn btn-primary rounded-0 border-0" style="background-color: #876445"
+                (click)="createOrder()">go to payment</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- payment section -->
+
+        <div *ngIf="orderId" class="  p-3 payment-sec">
+
+          <p class="fs-5 title">Payment Details</p>
+
+          <div class="card p-5 rounded-0  border border-light-subtle" style="background-color:#fcfaf4">
+            <app-payment></app-payment>
+          </div>
+        </div>
+      </div>
+
+<!-- cart details -->
+
+      <div class="col-md-5 px-md-5 p-md-3 border-start ">
+        <div class="p-3 overflow-scroll" style="max-height:362px">
+          <ul class="list-group list-group-flush ">
+            <li *ngFor="let product of products" style="background-color:inherit"
+              class="list-group-item d-flex align-items-center justify-content-between ">
+              <div class="d-flex gap-3 align-items-center" style="color: #2a431c;">
+                <img src="{{product?.images[0].url}}" class="img-fluid rounded-3" style="width: 80px;height: 80px;"
+                  alt="product">
+                <div>
+                  <p class="mb-0" style="color:#482307">{{product?.name}} </p>
+                  <small>Qty : {{product?.qty}}</small>
+                </div>
+              </div>
+              <p style="color: #2a431c;"> {{product?.totalPrice | currency : "INR"}} </p>
+            </li>
+          </ul>
+        </div>
+        <hr>
+        <div class="mb-4 px-3 d-flex align-items-center gap-3">
+          <input type="text" class="form-control " id="inputPassword2" placeholder="*coupon code">
+          <button type="button" class="btn btn-primary border-0 " style="background-color:#876445;">Apply</button>
+        </div>
+        <div class="px-3">
+          <div class="d-flex justify-content-between">
+            <p style="color:#482307">subtotal :</p> <small style="color:#2a431c">{{subTotal | currency: "INR"}}</small>
+          </div>
+          <div class="d-flex justify-content-between">
+            <p style="color:#482307">delievery fee :</p> <small style="color:#2a431c">{{deliveryFee | currency:
+              "INR"}}</small>
+          </div>
+        </div>
+        <hr>
+        <div class="px-3 d-flex justify-content-between">
+          <h5 class="text-capitalize" style="color:#482307">total :</h5> <span class="fw-bold"
+            style="color:#2a431c">{{total| currency: "INR"}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
