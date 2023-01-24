@@ -113,13 +113,12 @@ export const cartReducer = createReducer(
 export const buyReducer = createReducer(
   initialState,
   on(buyNow, (state,product: any) => {
-    console.log(product);
 
-    return {
+    state =  {
       ...state,
       products : [product],
       totalAmount : product.price
     }
-
+    return state;
   }),
 )

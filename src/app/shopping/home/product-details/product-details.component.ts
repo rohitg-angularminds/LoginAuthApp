@@ -30,8 +30,6 @@ export class ProductDetailsComponent implements OnInit {
     this.http.get(`/shop/products/${this.productId}`).subscribe({
       next: (data) => {
         this.productDetails = data;
-        console.log(this.productDetails);
-
       },
     });
   }

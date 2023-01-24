@@ -25,12 +25,12 @@ export class CheckoutComponent implements OnInit {
   customerEmail: any;
   selectedAddress: any;
   deliveryFee: number = 0;
-  subTotal: any = JSON.parse(this.userService.get('cart') || '[]')?.totalAmount;
-  total: number = this.deliveryFee + this.subTotal;
+  subTotal: any;
+  total!: number;
   items: any = [];
-  orderId: any =this.userService.get('orderId');
+  orderId: any;
   products: any;
-
+  source: any;
 
   paymentForm!: FormGroup;
   @Output() custLoggedStatus: Boolean = this.isLoggedin();
@@ -40,15 +40,22 @@ export class CheckoutComponent implements OnInit {
       ? (this.getcustomerAddress(), this.getCustomerProfile())
       : '';
 
-    this.products =
-      JSON.parse(this.userService?.get('cart') || '[]')?.products || [];
+    this.source = this.userService.get('prevUrl') === '/cart' ? 'cart' : 'buy';
+    this.subTotal = JSON.parse(
+      this.userService.get(this.source) || '[]'
+    )?.totalAmount;
 
-    // this.store.select('buy').subscribe({
-    //   next: (data) => {
-    //     this.products = data.products;
-    //     this.subTotal = data.totalAmount;
-    //   },
-    // });
+    this.total = this.deliveryFee + this.subTotal;
+
+
+      this.userService.get('prevUrl') === '/cart'
+        ? this.products = JSON.parse(this.userService?.get('cart') || '[]')?.products
+        : this.store.select('buy').subscribe({
+            next: (data) => {
+                this.products = data.products;
+            },
+          });
+
 
     // payment form
     this.paymentForm = new FormGroup({
@@ -134,7 +141,7 @@ export class CheckoutComponent implements OnInit {
         next: (res) => {
           this.toast.success('order placed successfully');
           this.router.navigate(['/profile']);
-          this.userService.delete('orderId')
+          this.userService.delete('orderId');
         },
         error: (err) => {
           console.log(err);

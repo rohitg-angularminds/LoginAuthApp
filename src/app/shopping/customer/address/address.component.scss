@@ -1,15 +1,19 @@
-label{
+label {
   color: #876445;
 }
 
-.card{
-  font-family: 'work Sans', 'sans-serif';
+.card {
+  font-family: "work Sans", "sans-serif";
   background-color: #f7f6f2;
 }
 
+.list-group-item:hover {
+  background-color: #faf3e1 !important;
+  cursor: pointer;
+}
 
-.address-text{
-  color:#2a431c;
+.address-text {
+  color: #2a431c;
 }
 
 .submit-btn:hover {
