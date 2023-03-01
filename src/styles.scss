@@ -7,27 +7,24 @@
 .grecaptcha-badge {
   visibility: hidden;
 }
+body {overflow-x: hidden !important;  Scrollbar-width: none;}
+body::-webkit-scrollbar { width: 0; height: 0;}
 
-body::-webkit-scrollbar{
-  display:none
-}
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #fff !important;
+
 }
 
 ::-webkit-scrollbar {
   width: 3px;
-  background-color: #fff;
+  // background-color: #fff;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  width: 6px;
-  background-color: #1f3015;
+  background-color: #6c865c;
   cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #435a36;
+  background-color: #b8d4a9;
 }

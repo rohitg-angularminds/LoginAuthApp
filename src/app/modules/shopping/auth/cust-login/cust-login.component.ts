@@ -53,9 +53,7 @@ export class CustLoginComponent implements OnInit {
       },
       error: (err) => {
         this.errorMessage = err.error.message;
-        setTimeout(() => {
-          this.errorMessage = undefined;
-        }, 2000);
+        this.toast.error(this.errorMessage);
         this.router.navigateByUrl('/auth/login');
       },
     });

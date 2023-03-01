@@ -1,6 +1,12 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { HttpService } from 'src/app/services/http.service';
 import { passwordValidator } from '../../../../services/validators/custom-validators';
 
@@ -10,11 +16,15 @@ import { passwordValidator } from '../../../../services/validators/custom-valida
   styleUrls: ['./cust-registration.component.scss'],
 })
 export class CustRegistrationComponent implements OnInit {
-  constructor(private http: HttpService, private router: Router, private fb:FormBuilder) {}
+  constructor(
+    private http: HttpService,
+    private router: Router,
+    private fb: FormBuilder,
+    private toast: HotToastService
+  ) {}
 
   customerRegstrationForm!: FormGroup;
-  @Output() errorMessage = undefined;
-  @Output() successMessage: any;
+  errorMessage!: any;
 
   ngOnInit(): void {
     this.customerRegstrationForm = this.fb.group(
@@ -47,15 +57,12 @@ export class CustRegistrationComponent implements OnInit {
       .post(this.customerRegstrationForm.value, '/shop/auth/register')
       .subscribe({
         next: (res) => {
-          this.successMessage = 'registered successfully';
-          setTimeout(() => {
-            this.router.navigateByUrl('/login');
-          }, 1000);
+          this.toast.success('registered successfully');
+          this.router.navigateByUrl('/login');
         },
         error: (err) => {
           this.errorMessage = err.error.message;
-         setTimeout(() => { this.errorMessage=undefined;}, 2000)
-
+          this.toast.error(this.errorMessage);
         },
       });
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { HttpService } from 'src/app/services/http.service';
 import { passwordValidator } from 'src/app/services/validators/custom-validators';
 
@@ -10,7 +11,7 @@ import { passwordValidator } from 'src/app/services/validators/custom-validators
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-  constructor(private http: HttpService, private router:Router, private fb : FormBuilder) {}
+  constructor(private http: HttpService, private router:Router, private fb : FormBuilder, private toast:HotToastService) {}
 
   updateImageForm!: FormGroup;
   updateProfileForm! : FormGroup
@@ -104,7 +105,9 @@ export class EditProfileComponent implements OnInit {
 
     this.http.post(formData, '/customers/profile-picture').subscribe({
       next: (res) => {
-        this.getCustomerProfile()
+        this.toast.success('photo updated successfully')
+        this.getCustomerProfile();
+
       },
     });
   }

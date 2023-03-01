@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerAuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: LocalstorageService) { }
+  custLoggedStatus : any ;
 
-  ngOnInit(): void {
-  }
-
+ ngOnInit(): void {
+   this.userService.isLoggedin.subscribe( (res) => {
+     this.custLoggedStatus = res;
+   }); ;
+ }
 }

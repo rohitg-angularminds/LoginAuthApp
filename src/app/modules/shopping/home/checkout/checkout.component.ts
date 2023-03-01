@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -25,13 +25,11 @@ export class CheckoutComponent implements OnInit {
   customerEmail: any;
   selectedAddress: any;
   deliveryFee: number = 0;
-  subTotal: any;
-  total!: number;
+  subTotal!: any;
+  total: number = this.deliveryFee + this.subTotal;
   items: any = [];
   orderId: any;
   products: any;
-  source: any;
-
   paymentForm!: FormGroup;
   @Output() custLoggedStatus: Boolean = this.isLoggedin();
 
@@ -40,21 +38,20 @@ export class CheckoutComponent implements OnInit {
       ? (this.getcustomerAddress(), this.getCustomerProfile())
       : '';
 
-    this.source = this.userService.get('prevUrl') === '/cart' ? 'cart' : 'buy';
-    this.subTotal = JSON.parse(
-      this.userService.get(this.source) || '[]'
-    )?.totalAmount;
+    this.userService.get('source') === 'buy'
+      ? this.store.select('buy').subscribe({
+          next: (data) => {
+            this.products = data.products;
+            this.subTotal = data.totalAmount;
+          },
+        })
+      : ((this.products = JSON.parse(
+          this.userService?.get('cart') || '[]'
+        )?.products),
+        (this.subTotal = JSON.parse(
+          this.userService?.get('cart') || '[]'
+        )?.totalAmount));
 
-    this.total = this.deliveryFee + this.subTotal;
-
-
-      this.userService.get('prevUrl') === '/cart'
-        ? this.products = JSON.parse(this.userService?.get('cart') || '[]')?.products
-        : this.store.select('buy').subscribe({
-            next: (data) => {
-                this.products = data.products;
-            },
-          });
 
 
     // payment form
@@ -74,6 +71,11 @@ export class CheckoutComponent implements OnInit {
       ]),
     });
   }
+
+  ngOnDestroy(): void {
+    this.userService.delete('source');
+  }
+
 
   isLoggedin(): Boolean {
     return this.userService.get('customerToken') !== null ? true : false;
@@ -163,5 +165,4 @@ export class CheckoutComponent implements OnInit {
     this.orderId = null;
   }
 
-  customerLogin() {}
 }

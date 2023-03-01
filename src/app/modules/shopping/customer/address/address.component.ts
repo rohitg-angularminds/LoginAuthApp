@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { filter, map, pairwise } from 'rxjs';
 import { HttpService } from 'src/app/services/http.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-address',
@@ -12,7 +13,7 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 })
 export class AddressComponent implements OnInit {
   constructor(private http: HttpService, private router: Router, private userService: LocalstorageService) {
-    
+
 
   }
 
@@ -106,12 +107,30 @@ export class AddressComponent implements OnInit {
       });
   }
 
-  deleteAddress() {
-    this.http.delete(`/customers/address/${this.addressId}`).subscribe({
-      next: (res) => {
-        this.getcustomerAddress();
-      },
-    });
+  deleteAddress(addressId: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'skyblue',
+      confirmButtonText: 'delete'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.delete(`/customers/address/${addressId}`).subscribe({
+          next: (res) => {
+            Swal.fire(
+              'Deleted!',
+              'success'
+            )
+            this.getcustomerAddress();
+          },
+        })
+
+      }
+    })
+
   }
 
   // function for customer profile

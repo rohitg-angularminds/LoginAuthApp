@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
@@ -9,14 +9,12 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 export class CustomerAppComponent implements OnInit {
 
   constructor(private userService: LocalstorageService) { }
-  @Output() custLoggedStatus: any = this.userService.isLoggedin.subscribe( (res) => {
-    console.log(res);
-    this.custLoggedStatus = res
-  }); ;
-
+   custLoggedStatus : any ;
 
   ngOnInit(): void {
-
+    this.userService.isLoggedin.subscribe( (res) => {
+      this.custLoggedStatus = res;
+    }); ;
   }
 
 

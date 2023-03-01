@@ -1,19 +1,9 @@
-<!-- error alert toast -->
-<app-error-toast [errorMessage]="errorMessage"></app-error-toast>
-
-<!-- seccess alert toast -->
-<app-success-toast [successMessage]="successMessage"></app-success-toast>
-
-<!-- navbar -->
-<app-cust-header></app-cust-header>
-
 <!-- main container -->
-
-<main class="p-5" style="background-color: #f3f1e7; height: 90vh;">
-  <div class="container-md p-5">
+<main class="p-sm-5 p-3" style="background-color: #f3f1e7; height: 90vh;">
+  <div class="container-sm p-sm-5">
     <div class="card mx-auto  col-md-10 col-lg-9 " style="background-color: #B1D7B4">
       <div class="row g-0">
-        <div class=" col-sm-7">
+        <div class="col-12 col-sm-7">
           <div class="card-body p-5">
             <h4 class="text-center" style="color: #2a431c;">LOGIN</h4>
             <form [formGroup]="customerLoginForm" (ngSubmit)="customerLogin()">

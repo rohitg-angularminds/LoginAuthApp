@@ -1,32 +1,13 @@
-<!-- delete address confirmation modal -------- -->
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <p>Are you sure to delete this address?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          cancel
-        </button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteAddress()">
-          confirm
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 <div class="card overflow-auto p-3 rounded-0  border border-light-subtle"
   style="height:80vh; background-color: #fcfaf4;">
-
   <!-- add address button -->
   <div>
     <button class="btn rounded-0 mb-3" style="background-color: #eae2b7;color: #482307;" data-bs-toggle="collapse"
       data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i
         class="fa-solid fa-plus"></i> add address</button>
-
   </div>
   <!-- add address collapse form -->
   <div class="collapse mb-3 " id="collapseExample">
@@ -73,7 +54,6 @@
       </form>
     </div>
   </div>
-
   <!-- address list section -->
   <div class="list-group rounded-0 mt-3 ">
     <li *ngFor="let address of customerAddress; index as i" class="list-group-item d-flex list-group-item-action"
@@ -91,8 +71,8 @@
             <ul class="dropdown-menu" style="background-color:#fcfbf5 ; color: #482307;">
               <li><a class="dropdown-item" (click)="getaddressId(address._id, i)" href="#" data-bs-toggle="collapse"
                   data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">edit</a></li>
-              <li><a class="dropdown-item" data-bs-target="#deleteConfirmModal" data-bs-toggle="modal"
-                  (click)="getaddressId(address._id, i)">delete</a></li>
+              <li><a class="dropdown-item"
+                  (click)="deleteAddress(address._id)">delete</a></li>
             </ul>
           </div>
         </div>

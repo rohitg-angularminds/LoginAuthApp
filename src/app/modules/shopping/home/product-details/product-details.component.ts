@@ -44,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
   buyNow(){
     this.productDetails.qty = 1 ;
     this.productDetails.totalPrice = this.productDetails.price
+    this.userService.set('source','buy')
     this.router.navigate(['/checkout']);
     this.store.dispatch(buyNow(this.productDetails))
   }
